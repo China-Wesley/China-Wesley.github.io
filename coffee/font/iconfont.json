@@ -1,0 +1,100 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "774376",
+      "name": "更多",
+      "font_class": "gengduo",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "826948",
+      "name": "登录",
+      "font_class": "denglu-copy",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "1274809",
+      "name": "首页",
+      "font_class": "shouye",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "1604939",
+      "name": "账户管理",
+      "font_class": "weibiaoti5",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "2678579",
+      "name": "菜单",
+      "font_class": "caidan",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "4508434",
+      "name": "门店线性",
+      "font_class": "mendianxianxing",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "5729762",
+      "name": "我的账户",
+      "font_class": "wodezhanghu",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "6426926",
+      "name": "咖啡",
+      "font_class": "kafei",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "9097136",
+      "name": "咖啡",
+      "font_class": "ziyuan",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "9673157",
+      "name": "关  闭",
+      "font_class": "guanbi",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "10707252",
+      "name": "箭头 右 right",
+      "font_class": "jiantouyou",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "10707278",
+      "name": "箭头 左 left",
+      "font_class": "jiantouzuo",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "12683553",
+      "name": "菜单",
+      "font_class": "icon_caidan",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    }
+  ]
+}

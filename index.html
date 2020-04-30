@@ -1,10 +1,10 @@
 <!--
  * @Author: your name
- * @Date: 2020-04-28 17:43:21
- * @LastEditTime: 2020-04-28 17:43:56
- * @LastEditors: your name
+ * @Date: 2020-04-30 11:43:37
+ * @LastEditTime: 2020-04-30 12:16:36
+ * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
- * @FilePath: \像素鸟c:\Users\14035\Desktop\China-Wesley.github.io\index.html
+ * @FilePath: \JS jQuery 源码\index.html
  -->
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +12,111 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>WZW的主页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+
+    }
+
+    :root,
+    body {
+      height: 100%;
+      transition: all .3s;
+    }
+
+    a {
+      text-decoration: none;
+      color: rgba(0, 255, 255, .8);
+      display: block;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 1rem 2rem;
+      background-color: #000;
+      border-radius: 2rem;
+      font-size: 1.1rem;
+      box-shadow: 0 0 3px 1px cyan;
+      transition: all .3s;
+      z-index: 100;
+    }
+
+    a:nth-of-type(1) {
+      top: 40%;
+    }
+
+    a:nth-of-type(2) {
+      top: 50%;
+    }
+
+    a:nth-of-type(1):hover {
+      box-shadow: 0 0 1rem 1px cyan;
+      top: 39.5%;
+    }
+
+    a:nth-of-type(2):hover {
+      box-shadow: 0 0 1rem 1px cyan;
+      top: 49.5%;
+    }
+
+    .contain {
+      position: absolute;
+      background: #000;
+      height: 100%;
+      width: 100%;
+      transition: all .5s;
+    }
+
+  </style>
 </head>
 
 <body>
-  自己的网页
+  <a href="http://www.hiwzw.com/coffee">星巴克练习</a>
+  <a href="http://www.hiwzw.com/bird">像素鸟练习</a>
+  <div class="contain"></div>
 </body>
+<script>
+  var a1 = document.getElementsByTagName('a')[0];
+  var a2 = document.getElementsByTagName('a')[1];
+  var body = document.getElementsByTagName('body')[0];
+  var contain = document.getElementsByClassName('contain')[0];
+
+  a1.onmouseenter = function () {
+    body.style.background = "url('./img/start.bmp')";
+    body.style.backgroundSize = 'cover';
+    contain.style.opacity = 0.6;
+  }
+  a1.onmouseleave = function () {
+    contain.style.opacity = 1;
+  }
+  a2.onmouseenter = function () {
+    body.style.background = "url('./img/bird.bmp')";
+    body.style.backgroundSize = 'cover';
+    contain.style.opacity = 0.6;
+  }
+  a2.onmouseleave = function () {
+    contain.style.opacity = 1;
+  }
+
+
+  a1.ontouchstart = function () {
+    body.style.background = "url('./img/start.bmp')";
+    body.style.backgroundSize = 'cover';
+    contain.style.opacity = 0.6;
+  }
+  a1.ontouchend = function () {
+    contain.style.opacity = 1;
+  }
+  a2.ontouchstart = function () {
+    body.style.background = "url('./img/bird.bmp')";
+    body.style.backgroundSize = 'cover';
+    contain.style.opacity = 0.6;
+  }
+  a2.ontouchend = function () {
+    contain.style.opacity = 1;
+  }
+
+</script>
 
 </html>

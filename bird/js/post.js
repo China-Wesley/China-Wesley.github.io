@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-29 11:35:14
- * @LastEditTime: 2020-04-30 13:47:00
+ * @LastEditTime: 2020-04-30 13:48:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\post.js
@@ -98,7 +98,7 @@ if (strapWidth >= 1136) {
   less = 2;
   scoreDelay = 750;
   jump = -220;
-  earthA = 600;
+  earthA = 450;
 }
 
 // iphone7 = 2%    , 7plus = 2%  iphone X = 2%

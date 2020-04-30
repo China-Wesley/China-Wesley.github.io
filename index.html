@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-30 11:43:37
- * @LastEditTime: 2020-04-30 12:16:36
+ * @LastEditTime: 2020-04-30 12:27:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JS jQuery 源码\index.html
@@ -82,40 +82,61 @@
   var body = document.getElementsByTagName('body')[0];
   var contain = document.getElementsByClassName('contain')[0];
 
-  a1.onmouseenter = function () {
-    body.style.background = "url('./img/start.bmp')";
-    body.style.backgroundSize = 'cover';
-    contain.style.opacity = 0.6;
+  function a1Event() {
+    a1.onmouseenter = function () {
+      body.style.background = "url('./img/start.bmp')";
+      body.style.backgroundSize = 'cover';
+      contain.style.opacity = 0.6;
+    }
+    a1.onmouseleave = function () {
+      contain.style.opacity = 1;
+    }
+
+    a1.ontouchstart = function () {
+      body.style.background = "url('./img/start.bmp')";
+      body.style.backgroundSize = 'cover';
+      contain.style.opacity = 0.6;
+    }
+    a1.ontouchend = function () {
+      contain.style.opacity = 1;
+    }
+
   }
-  a1.onmouseleave = function () {
-    contain.style.opacity = 1;
-  }
-  a2.onmouseenter = function () {
-    body.style.background = "url('./img/bird.bmp')";
-    body.style.backgroundSize = 'cover';
-    contain.style.opacity = 0.6;
-  }
-  a2.onmouseleave = function () {
-    contain.style.opacity = 1;
+
+  function a2Event() {
+    a2.onmouseenter = function () {
+      body.style.background = "url('./img/bird.bmp')";
+      body.style.backgroundSize = 'cover';
+      contain.style.opacity = 0.6;
+    }
+    a2.onmouseleave = function () {
+      contain.style.opacity = 1;
+    }
+    a2.ontouchstart = function () {
+      body.style.background = "url('./img/bird.bmp')";
+      body.style.backgroundSize = 'cover';
+      contain.style.opacity = 0.6;
+    }
+    a2.ontouchend = function () {
+      contain.style.opacity = 1;
+    }
   }
 
 
-  a1.ontouchstart = function () {
-    body.style.background = "url('./img/start.bmp')";
-    body.style.backgroundSize = 'cover';
-    contain.style.opacity = 0.6;
-  }
-  a1.ontouchend = function () {
-    contain.style.opacity = 1;
-  }
-  a2.ontouchstart = function () {
-    body.style.background = "url('./img/bird.bmp')";
-    body.style.backgroundSize = 'cover';
-    contain.style.opacity = 0.6;
-  }
-  a2.ontouchend = function () {
-    contain.style.opacity = 1;
-  }
+  function loadImage(url, callback) {
+    var img = new Image(); //创建一个Image对象，实现图片的预下载
+    img.src = url;
+    if (img.complete) { // 如果图片已经存在于浏览器缓存，直接调用回调函数
+      callback()
+      return; // 直接返回，不用再处理onload事件
+    }
+    img.onload = function () { //图片下载完毕时异步调用callback函数。
+      callback() //将回调函数的this替换为Image对象
+    };
+  };
+
+  loadImage('./img/start.bmp', a1Event);
+  loadImage('./img/bird.bmp', a2Event);
 
 </script>
 

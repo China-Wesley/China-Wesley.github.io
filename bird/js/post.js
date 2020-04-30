@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-29 11:35:14
- * @LastEditTime: 2020-04-30 11:34:15
+ * @LastEditTime: 2020-04-30 13:32:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\post.js
@@ -103,8 +103,8 @@ postTimer = setInterval(() => {
 
 class CreatePair {
   constructor() {
-    this.upHeight = random(10, 37);
-    this.downHeight = (61 - this.upHeight);
+    this.upHeight = random(10, 35);
+    this.downHeight = (60 - this.upHeight);
     this.upDom = document.createElement('div')
     this.upDom.className = 'post Up';
     this.downDom = document.createElement('div')

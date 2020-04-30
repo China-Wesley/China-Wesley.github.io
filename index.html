@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-30 11:43:37
- * @LastEditTime: 2020-04-30 13:04:37
+ * @LastEditTime: 2020-04-30 13:20:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JS jQuery 源码\index.html
@@ -40,6 +40,7 @@
       box-shadow: 0 0 3px 1px cyan;
       transition: all .3s;
       z-index: 100;
+      cursor: pointer;
     }
 
     a:nth-of-type(1) {
@@ -70,12 +71,31 @@
       transition: all .5s;
     }
 
+    p {
+      text-decoration: none;
+      color: rgba(0, 255, 255, .8);
+      display: block;
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      display: none;
+    }
+
+    @media screen and (max-width: 540px) {
+      p {
+        display: block;
+      }
+    }
+
   </style>
 </head>
 
 <body>
-  <a href="http://www.hiwzw.com/coffee">星巴克练习</a>
-  <a href="http://www.hiwzw.com/bird">像素鸟练习</a>
+  <a>星巴克练习</a>
+  <p>长按预览</p>
+  <a>像素鸟练习</a>
   <div class="contain"></div>
 </body>
 <script>
@@ -85,10 +105,15 @@
   var contain = document.getElementsByClassName('contain')[0];
 
   function a1Event() {
+    a1.onclick = function () {
+
+      a1.href = 'http://www.hiwzw.com/coffee'
+    }
     a1.onmouseenter = function () {
       body.style.background = "url('./img/star.jpg')";
       body.style.backgroundSize = 'cover';
       contain.style.opacity = 0.6;
+
     }
     a1.onmouseleave = function () {
       contain.style.opacity = 1;
@@ -106,6 +131,9 @@
   }
 
   function a2Event() {
+    a2.onclick = function () {
+      a2.href = 'http://www.hiwzw.com/bird'
+    }
     a2.onmouseenter = function () {
       body.style.background = "url('./img/bird.jpg')";
       body.style.backgroundSize = 'cover';

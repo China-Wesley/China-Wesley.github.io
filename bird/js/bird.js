@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-28 21:09:13
- * @LastEditTime: 2020-04-30 16:06:41
+ * @LastEditTime: 2020-04-30 16:35:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\bird.js
@@ -13,7 +13,7 @@ const birdHeight = parseFloat(birdStyles.height);
 const birdLeft = parseFloat(birdStyles.left);
 const birdTop = parseFloat(birdStyles.top);
 const note = document.getElementsByClassName('note')[0];
-
+const clickBody = document.getElementsByTagName('body')[0];
 let birdTimer = null;
 //给鸟加个锁
 let lock = true;
@@ -63,8 +63,7 @@ console.log(flyBird.top)
 //绑定点击和键盘事件
 window.addEventListener('click', bind, false)
 window.addEventListener('keydown', bind, false)
-window.addEventListener('tap', bird, false)
-window.addEventListener('touchend', bird, false);
+clickBody.addEventListener('click', bind, false)
 
 function bind(e) {
   if (e.code == 'Space' || e.type == 'click') {

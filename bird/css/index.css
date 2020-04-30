@@ -7,12 +7,13 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  cursor: pointer;
+
 }
 
 :root,
 body {
   height: 100%;
+  cursor: pointer;
 }
 
 .contain {
@@ -28,7 +29,7 @@ body {
 .contain .sky {
   background: url('../img/sky.png');
   background-size: auto 100%;
-
+  cursor: pointer;
   width: 200%;
   height: 80%;
   background-position: 0px;
@@ -42,6 +43,7 @@ body {
   bottom: 7%;
   width: 200%;
   height: 15%;
+  cursor: pointer;
   background-position: 0px;
 }
 

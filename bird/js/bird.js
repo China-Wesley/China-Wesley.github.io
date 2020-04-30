@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-28 21:09:13
- * @LastEditTime: 2020-04-30 13:36:11
+ * @LastEditTime: 2020-04-30 16:06:41
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\bird.js
@@ -64,7 +64,7 @@ console.log(flyBird.top)
 window.addEventListener('click', bind, false)
 window.addEventListener('keydown', bind, false)
 window.addEventListener('tap', bird, false)
-window.addEventListener('touchstart', bird, false);
+window.addEventListener('touchend', bird, false);
 
 function bind(e) {
   if (e.code == 'Space' || e.type == 'click') {

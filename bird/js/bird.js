@@ -79,7 +79,7 @@ function bind(e) {
         lock = true;
       }, 16)
     }
-    flyBird.ySpeed = -380;
+    flyBird.ySpeed = jump;
   }
 }
 let fly = 4;

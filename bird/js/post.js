@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-29 11:35:14
- * @LastEditTime: 2020-04-30 13:32:23
+ * @LastEditTime: 2020-04-30 13:42:56
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\post.js
@@ -62,31 +62,43 @@ let delay,
   cut;
 //23 26
 var scoreDelay;
+var jump;
+var earthA;
 if (strapWidth >= 1136) {
   delay = 1300;
   much = 18;
   less = 11;
   scoreDelay = 350;
+  jump = -380;
+  earthA = 1350;
 } else if (strapWidth >= 960 && strapWidth <= 1136) {
   delay = 1600;
   much = 18;
   less = 10;
   scoreDelay = 450;
+  jump = -380;
+  earthA = 1350;
 } else if (strapWidth >= 720 && strapWidth <= 960) {
   delay = 2000;
   much = 19;
   less = 9;
   scoreDelay = 450;
+  jump = -380;
+  earthA = 1350;
 } else if (strapWidth >= 540 && strapWidth <= 720) {
   delay = 2500;
   much = 20;
   less = 7;
   scoreDelay = 450;
+  jump = -380;
+  earthA = 1350;
 } else if (strapWidth <= 540) {
   delay = 3000;
   much = 25;
   less = 2;
   scoreDelay = 750;
+  jump = -280;
+  earthA = 900;
 }
 
 // iphone7 = 2%    , 7plus = 2%  iphone X = 2%

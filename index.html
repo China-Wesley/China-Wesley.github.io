@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-04-30 11:43:37
- * @LastEditTime: 2020-04-30 12:28:57
+ * @LastEditTime: 2020-04-30 13:04:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \JS jQuery 源码\index.html
@@ -53,11 +53,13 @@
     a:nth-of-type(1):hover {
       box-shadow: 0 0 1rem 1px cyan;
       top: 34.5%;
+      background: transparent;
     }
 
     a:nth-of-type(2):hover {
       box-shadow: 0 0 1rem 1px cyan;
       top: 54.5%;
+      background: transparent;
     }
 
     .contain {
@@ -84,7 +86,7 @@
 
   function a1Event() {
     a1.onmouseenter = function () {
-      body.style.background = "url('./img/start.bmp')";
+      body.style.background = "url('./img/star.jpg')";
       body.style.backgroundSize = 'cover';
       contain.style.opacity = 0.6;
     }
@@ -93,7 +95,7 @@
     }
 
     a1.ontouchstart = function () {
-      body.style.background = "url('./img/start.bmp')";
+      body.style.background = "url('./img/star.jpg')";
       body.style.backgroundSize = 'cover';
       contain.style.opacity = 0.6;
     }
@@ -105,7 +107,7 @@
 
   function a2Event() {
     a2.onmouseenter = function () {
-      body.style.background = "url('./img/bird.bmp')";
+      body.style.background = "url('./img/bird.jpg')";
       body.style.backgroundSize = 'cover';
       contain.style.opacity = 0.6;
     }
@@ -113,7 +115,7 @@
       contain.style.opacity = 1;
     }
     a2.ontouchstart = function () {
-      body.style.background = "url('./img/bird.bmp')";
+      body.style.background = "url('./img/bird.jpg')";
       body.style.backgroundSize = 'cover';
       contain.style.opacity = 0.6;
     }
@@ -135,8 +137,8 @@
     };
   };
 
-  loadImage('./img/start.bmp', a1Event);
-  loadImage('./img/bird.bmp', a2Event);
+  loadImage('./img/star.jpg', a1Event);
+  loadImage('./img/bird.jpg', a2Event);
 
 </script>
 

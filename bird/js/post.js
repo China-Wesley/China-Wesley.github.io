@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-29 11:35:14
- * @LastEditTime: 2020-04-30 16:21:59
+ * @LastEditTime: 2020-04-30 16:46:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\post.js
@@ -97,7 +97,7 @@ if (strapWidth >= 1136) {
   much = 25;
   less = 2;
   scoreDelay = 750;
-  jump = -250;
+  jump = -270;
   earthA = 300;
 }
 

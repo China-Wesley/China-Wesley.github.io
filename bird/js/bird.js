@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-28 21:09:13
- * @LastEditTime: 2020-04-30 16:35:16
+ * @LastEditTime: 2020-04-30 16:44:49
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\bird.js
@@ -21,7 +21,7 @@ let lock = true;
 class Bird extends ItemMove {
   constructor() {
     super(birdWidth, birdHeight, bird, 0, 100, birdLeft, birdTop);
-    this.a = 1350;
+    this.a = 1200;
   }
 
   render() {

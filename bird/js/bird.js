@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-04-28 21:09:13
- * @LastEditTime: 2020-04-30 11:36:10
+ * @LastEditTime: 2020-04-30 13:25:00
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \像素鸟\js\bird.js
@@ -63,6 +63,7 @@ console.log(flyBird.top)
 //绑定点击和键盘事件
 window.addEventListener('click', bind, false)
 window.addEventListener('keydown', bind, false)
+window.addEventListener('touchstart', bird, false)
 
 function bind(e) {
   if (e.code == 'Space' || e.type == 'click') {

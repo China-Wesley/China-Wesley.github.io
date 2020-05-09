@@ -1,0 +1,280 @@
+@font-face {
+  font-family: 'iconfont';
+  src: url('../font/iconfont.eot');
+  src: url('../font/iconfont.eot#iefix') format('embedded-opentype'),
+    url('../font/iconfont.woff2') format('woff2'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../iconfont.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 12px;
+
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+}
+
+a {
+  color: #999;
+  text-decoration: none;
+}
+
+.clearfix::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.shortCut {
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid #ddd;
+  background-color: #e3e4e5;
+  color: #999;
+}
+
+.shortCut-content {
+  width: 1190px;
+  height: 30px;
+  margin: 0 auto;
+  line-height: 30px;
+}
+
+.shortCut-content-left {
+  padding: 0 5px;
+  float: left;
+  cursor: pointer;
+}
+
+.shortCut-content-left div,
+span {
+  float: left;
+}
+
+.shortCut-content-left:hover {
+  background-color: #fff;
+  color: #F10215;
+
+}
+
+.shortCut-content-right {
+  float: right;
+}
+
+.shortCut-content-right li {
+  float: left;
+  border: 1px solid transparent;
+}
+
+.shortCut-set,
+.shortCut-company {
+  color: #F10215;
+}
+
+.shortCut-cut {
+  height: 10px;
+  width: 1px;
+  background: #ccc;
+  margin: 11px 5px 0;
+}
+
+.shortCut-hover-color:hover {
+  color: #F10215;
+
+}
+
+.shortCut-content-right li:not(:nth-of-type(1)) {
+  padding: 0 7px;
+}
+
+.shortCut-content-right li:nth-of-type(1) {
+  margin-right: 8px;
+}
+
+.shortCut-nav i {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 0 6px 0 0;
+}
+
+.shortCut-content-left div {
+  margin-right: 4px;
+  color: #F10215;
+}
+
+.shortCut-hover {
+  position: relative;
+}
+
+.shortCut-hover:hover {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-bottom: 1px solid #fff;
+}
+
+.shortCut-menu-jd {
+  width: 280px;
+  position: absolute;
+  left: -1px;
+  top: 30px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 13px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  display: none;
+  background: #fff;
+  z-index: 1000;
+}
+
+
+.shortCut-menu-jd dl dd {
+  width: 126px;
+  float: left;
+}
+
+.shortCut-menu-jd .shortCut-menu-jd-up {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+
+}
+
+.shortCut-menu-jd-down {
+  padding-top: 10px;
+}
+
+.shortCut-menu-jd a:hover {
+  color: #F10215;
+}
+
+.shortCut-jd:hover .shortCut-menu-jd {
+  display: block;
+}
+
+.shortCut-menu-cg {
+  width: 140px;
+  position: absolute;
+  left: -1px;
+  top: 29px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 13px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  display: none;
+  background: #fff;
+  z-index: 1000;
+
+}
+
+
+.shortCut-menu-cg dl dd {
+  width: 56px;
+  float: left;
+  white-space: nowrap;
+
+}
+
+.shortCut-menu-cg a:hover {
+  color: #F10215;
+}
+
+.shortCut-cg:hover .shortCut-menu-cg {
+  display: block;
+}
+
+.shortCut-menu-fw {
+  width: 170px;
+  position: absolute;
+  left: -87px;
+  top: 29px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 13px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  display: none;
+  background: #fff;
+  z-index: 1000;
+
+}
+
+
+.shortCut-menu-fw dl dd {
+  width: 70px;
+  float: left;
+  white-space: nowrap;
+
+}
+
+.shortCut-menu-fw dl dt {
+  font-weight: bold;
+  color: #777;
+}
+
+.shortCut-menu-fw a:hover {
+  color: #F10215;
+}
+
+.shortCut-fw:hover .shortCut-menu-fw {
+  display: block;
+}
+
+
+.shortCut-menu-dh {
+  width: 1188px;
+  position: absolute;
+  right: -75px;
+  top: 29px;
+  border: 1px solid #ccc;
+  border-top: none;
+  padding: 13px;
+  margin-bottom: 10px;
+  line-height: 24px;
+  display: none;
+  background: #fff;
+  z-index: 10000;
+
+}
+
+
+.shortCut-menu-dh dl dd {
+  width: 85px;
+  float: left;
+  white-space: nowrap;
+
+}
+
+.shortCut-menu-dh dl dt {
+  font-weight: bold;
+  color: #777;
+}
+
+.shortCut-menu-dh a:hover {
+  color: #F10215;
+}
+
+.shortCut-dh:hover .shortCut-menu-dh {
+  display: block;
+}
+
+.dh-item {
+  width: 350px;
+  border-right: 1px solid #eee;
+
+}

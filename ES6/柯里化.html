@@ -1,0 +1,46 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-22 14:38:53
+ * @LastEditTime: 2020-04-22 14:46:39
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\柯里化.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  function cal(a, b, c, d) {
+    return a + b + c + d;
+  }
+
+
+  //崭新的 剩余参数 运算符展开柯里化  恭喜！！！
+
+  function curry(func, ...args) {
+    return function (...newArgs) {
+      const array = [...args, ...newArgs];
+      if (array.length >= func.length) {
+        return func(...array);
+      } else {
+        return curry(func, ...array);
+      }
+    }
+  }
+
+  const newCal = curry(cal);
+
+  console.log(newCal(1)(2)(2)(3));
+
+</script>
+
+</html>

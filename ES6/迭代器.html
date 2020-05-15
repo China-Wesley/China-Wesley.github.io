@@ -1,0 +1,55 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-25 16:26:07
+ * @LastEditTime: 2020-04-25 16:39:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\迭代器.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const arr1 = [1, 2, 3, 4, 5];
+    const arr2 = [1, 2, 3];
+
+    function createIterator(arr) {
+      let i = 0;
+      return {
+        next() {
+
+          let obj = {
+            value: arr[i],
+            done: i >= arr.length
+          }
+          i++;
+          return obj;
+
+        }
+      }
+    }
+
+
+    const func = createIterator(arr2);
+    let obj = func.next();
+
+    while (!obj.done) {
+      console.log(obj.value)
+
+      obj = func.next()
+
+    }
+    // console.log(obj.done)
+    // console.log(func.next())
+
+  </script>
+</body>
+
+</html>

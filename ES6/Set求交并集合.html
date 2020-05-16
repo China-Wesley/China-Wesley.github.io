@@ -1,0 +1,43 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-26 16:56:24
+ * @LastEditTime: 2020-04-26 17:05:34
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\Set求交并集合.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const arr1 = [1, 2, 3, 4, 5, 6];
+    const arr2 = [2, 4, 6, 8, 10];
+
+    //并集
+    console.log(...new Set([...arr1, ...arr2]));
+    //交集
+    let set1 = new Set(arr1);
+    let set2 = new Set(arr2);
+
+    let toSet = [...set1].filter(item => {
+      return set2.has(item);
+    })
+    console.log(toSet);
+    //差集
+    let subSet = [...set1].filter(item => {
+      return toSet.indexOf(item) >= 0 ? null : item;
+    })
+
+    console.log(subSet);
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-21 22:15:31
+ * @LastEditTime: 2020-04-21 22:25:15
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\中文字符长度.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  let str = "甔"
+  //   console.log(str.length)
+
+  function getCodePoint(str) {
+
+    const codeArr = str.split('');
+    // console.log(str)
+    for (let i = 0; i < str.length; i++) {
+      console.log(str.codePointAt(0));
+      console.log(0xffff)
+    }
+  }
+
+  getCodePoint(str)
+
+</script>
+
+</html>

@@ -97,7 +97,7 @@ if (strapWidth >= 1136) {
   much = 25;
   less = 2;
   scoreDelay = 750;
-  jump = -200;
+  jump = -300;
   earthA = 300;
 }
 

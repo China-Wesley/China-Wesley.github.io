@@ -1,0 +1,58 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-25 14:56:00
+ * @LastEditTime: 2020-04-25 15:40:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\Fetch文件上传.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img src="" alt="" id="image">
+  <input type="file" id="put">
+  <button id="sub">上传</button>
+</body>
+
+<script>
+  async function onload() {
+    const inp = document.getElementById('put');
+    // console.log(inp.files)
+    if (inp.files.length == 0) {
+      console.log("请选择文件")
+      return;
+    }
+    //请求体已经构建好
+    const formData = new FormData();
+    formData.append("imagefile", inp.files[0]);
+    //接下来传请求
+    const url = "http://101.132.72.36:5100/api/upload";
+    const res = await fetch(url, {
+      method: "POST",
+      body: formData
+    })
+    //把返回的 response 转换成 json格式
+    const result = res.json();
+    return result;
+
+
+  }
+
+  document.getElementById("sub").onclick = async function () {
+    //因为 onload 也是一个异步函数 所以这里 也要 await一下
+
+    const path = await onload();
+    const img = document.getElementById("image");
+    img.src = path.path;
+  }
+
+</script>
+
+</html>

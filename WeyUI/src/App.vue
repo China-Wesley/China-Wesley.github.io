@@ -1,11 +1,21 @@
 <template>
   <div id="app">
-    <el-icon name="eleme"></el-icon>
+    <!-- <el-icon name="eleme"></el-icon>
     <el-icon name="loading"></el-icon>
     <i class="el-icon-edit"></i>
     <el-row>
-      <!-- <el-col :span="10">qwe</el-col> -->
+      <el-col :span="10">qwe</el-col>
+    </el-row>-->
+
+    <el-row type="flex" justify="space-between">
+      <el-col :span="3">
+        <div class="green">asd</div>
+      </el-col>
+      <el-col :span="3">
+        <div class="red">asd</div>
+      </el-col>
     </el-row>
+    <i class="el-icon-moon"></i>
   </div>
 </template>
 
@@ -50,5 +60,13 @@ body > .el-container {
 
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
+}
+
+.green {
+  background: green;
+}
+
+.red {
+  background: red;
 }
 </style>

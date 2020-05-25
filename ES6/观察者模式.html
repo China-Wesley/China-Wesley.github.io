@@ -1,0 +1,88 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-27 10:45:08
+ * @LastEditTime: 2020-04-27 10:59:55
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\观察者模式.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="contain"></div>
+  <script>
+    //老模式
+    // function observe(target) {
+    //   const key = Object.keys(target);
+    //   const ob = {};
+    //   const contain = document.getElementsByClassName("contain")[0];
+    //   for (const prop of key) {
+    //     Object.defineProperty(ob, prop, {
+    //       get() {
+    //         return target[prop];
+    //       },
+    //       set(val) {
+    //         target[prop] = val;
+    //         render();
+    //       },
+    //       enumerable: true
+    //     })
+    //   }
+    //   render();
+
+    //   function render() {
+    //     let html = "";
+    //     for (const prop of Object.keys(ob)) {
+    //       html += `<p><span>${prop}: </span><span>${ob[prop]}</span></p>`
+    //     }
+    //     contain.innerHTML = html;
+    //   }
+
+    //   return ob;
+    // }
+
+
+    //新模式
+    function observe(target) {
+      const key = Object.keys(target);
+      //   const ob = {};
+      const contain = document.getElementsByClassName("contain")[0];
+      let proxy = new Proxy(target, {
+        set(target, prop, value) {
+          Reflect.set(target, prop, value);
+          render();
+        },
+        get(target, prop) {
+          return Reflect(target, prop);
+        }
+      })
+      render();
+
+      function render() {
+        let html = "";
+        for (const prop of Object.keys(target)) {
+          html += `<p><span>${prop}: </span><span>${target[prop]}</span></p>`
+        }
+        contain.innerHTML = html;
+      }
+      return proxy;
+    }
+
+    let target = {
+      a: 1,
+      b: 2
+    }
+
+    let ob = observe(target);
+
+  </script>
+</body>
+
+</html>

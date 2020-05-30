@@ -1,0 +1,56 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-25 16:49:48
+ * @LastEditTime: 2020-04-25 16:56:48
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\斐波拉契迭代器.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function createIterator(max) {
+      let prev1 = 1,
+        prev2 = 1,
+        n = 0;
+      return {
+        next() {
+          let value;
+          if (n < 2) {
+            value = 1;
+          } else {
+            value = prev1 + prev2;
+          }
+
+          let obj = {
+            value,
+            done: false
+          }
+          n++
+          prev1 = prev2;
+          prev2 = obj.value;
+          if (n > max) {
+            return;
+          } else {
+            return obj;
+
+          }
+        }
+      }
+    }
+
+    let arr = createIterator(10);
+    // console.log(arr.next())
+
+  </script>
+</body>
+
+</html>

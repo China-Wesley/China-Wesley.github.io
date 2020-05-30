@@ -1,0 +1,50 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-25 21:02:44
+ * @LastEditTime: 2020-04-25 21:21:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\迭代数组.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const obj = {
+      a: 1,
+      b: 2,
+      [Symbol.iterator]() {
+        //   返回一个属性组成的数组
+        const len = Object.keys(this);
+        let i = 0;
+        return {
+          next: () => {
+            let result = {
+              value: {
+                name: len[i],
+                val: this[len[i]]
+              },
+              done: i >= len.length,
+            }
+            i++;
+            return result;
+          }
+        }
+      }
+    }
+
+    for (let item of obj) {
+      console.log(item);
+    }
+
+  </script>
+</body>
+
+</html>

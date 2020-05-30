@@ -1,0 +1,38 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-24 21:39:11
+ * @LastEditTime: 2020-04-24 21:39:32
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\ES6\计时器改造函数.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function delay(duration) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, duration);
+      })
+    }
+
+
+    async function biaobai(god) {
+      console.log(`邓哥向${god}发出了表白短信`);
+      await delay(500);
+      return Math.random() < 0.3;
+    }
+
+  </script>
+</body>
+
+</html>

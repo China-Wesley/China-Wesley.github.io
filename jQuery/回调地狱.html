@@ -1,0 +1,154 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-16 20:46:33
+ * @LastEditTime: 2020-03-28 15:43:19
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\jQuery.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tpl {
+      display: none;
+    }
+
+    .wrapper {
+      overflow: hidden;
+      border: 1px solid black;
+      width: 600px;
+      margin: 100px auto 0px;
+
+    }
+
+    .movieSection {
+      float: left;
+      width: 180px;
+      height: 180px;
+      padding: 10px;
+
+    }
+
+    .movieSection img {
+      width: 100%;
+      height: 150px;
+      cursor: pointer;
+
+    }
+
+    .movieSection h3 {
+      height: 30px;
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- 模板 -->
+    <div class="tpl">
+      <img src="">
+      <h3 class="movieName"></h3>
+    </div>
+  </div>
+</body>
+<script src="jquery.min.js"></script>
+<script>
+  //回调地狱 可阅读性差 可维护性差
+  //扩展性也差 总之就是非常差
+  //设计模式六大原则
+  //单一职责原则（尽量让一个函数只做一件事情） 
+  //开闭原则（代码扩展对外开放）
+  //用$.Deferred()解决
+  //$.ajax() 是有返回值的 它的返回值就是我们的 Deferred对象
+
+  $.ajax({
+    //第一步 ajax 发送用户输入的用户名和密码
+    url: 'https://east-mock.com/mock/5c09f40d3c098813c612cce6/movie/power',
+    type: 'POST',
+    data: {
+      username: 'cst',
+      password: '123123'
+    },
+    //成功后 回调执行第二个ajax 确定是不是vip
+    success: function (res) {
+      if (res.data.power == 'root') {
+        $.ajax({
+          url: '',
+          type: 'GET',
+          success: function (res) {
+            //第二次传数据 展是vip可看的 电影
+            var data = res.data;
+            var $Wrapper = $('.wrapper');
+            $.each(data, function (index, ele) {
+              var $MovieSection = $('.tpl').clone().removeClass('tpl').addClass('movieSection');
+              $WrapperSection
+                .data({
+                  id: ele.id
+                }).on('click', function () {
+                  $.ajax({
+                    url: '',
+                    type: 'GET',
+                    //在这里 这个this 指的是$Wrapper id则指的是data中的 ele.id
+                    data: {
+                      movieId: $(this).data('id')
+                    },
+                    success: function (res) {
+                      var data = res.data;
+                      var direct = data.direct;
+                      var gut = data.gut;
+                      var minActor = data.mainActor;
+                      var screenWriter = data.screenwriter;
+
+                      var htmlStr = '<div class="mask">\
+                        <p>导演: ' + direct + '</p>\
+                        <p>剧情: ' + gut + '</p>\
+                        <p>主演: ' + mainActor.reduce(function (prev, curv) {
+                        prev += curv + ' ';
+                        return prev;
+                      }) + '</p>\
+                        <p>编剧: ' + screenWriter.reduce(function (prev, curv) {
+                        prev += curv + ' ';
+                        return prev;
+                      }) + '</p>\
+                        </div>';
+                      $(htmlStr).appendTo('body').css({
+                        position: 'absolute',
+                        left: $(window).outerWidth() / 2,
+                        bottom: 100,
+                        width: 400,
+                        marginLeft: -200
+                      });
+
+
+
+                    }
+                  })
+                })
+                .children().eq(0).attr('src', ele.poster)
+                .next().text(ele.name);
+              $Wrapper.append($MovieSection);
+
+            })
+
+          }
+        })
+      }
+    }
+  });
+
+</script>
+
+</html>

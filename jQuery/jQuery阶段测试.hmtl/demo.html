@@ -1,0 +1,330 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-26 15:50:42
+ * @LastEditTime: 2020-04-06 14:24:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\jQuery阶段测试.hmtl\demo.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #editInof {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background-color: orange;
+    }
+
+    body {
+      height: 20000px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div id="editInof"></div>
+</body>
+<script src="../jquery.min.js"></script>
+<script>
+  // var df = $.Deferred();
+  // df.then(function () {
+  //   var innerDf = $.Deferred();
+  //   setTimeout(function () {
+  //     innerDf.resolve('wocao');
+  //   }, 1500)
+  //   console.log('don1');
+  //   return innerDf.promise();
+  // }, function () {
+  //   console.log('fail1');
+  //   return 'no';
+  // }, function () {
+  //   console.log('progress1');
+  //   return 'wait';
+  // }).then(function (ms) {
+  //   console.log('done2' + ms);
+  // })
+
+  // df.resolve();
+
+
+
+
+  jQuery.fn = jQuery.prototype;
+  jQuery.fn.pushStack = function (dom) {
+    if (dom.constructor != jQuery) {
+      dom = jQuery(dom);
+    }
+    dom.prevObject = this;
+    return dom
+  }
+
+  jQuery.fn.eq = function (num) {
+    var num = num != null ? (num >= 0 ? this[num] : this[num + this.length]) : null;
+    return this.pushStack(dom);
+  }
+
+  jQuery.fn.get = function (num) {
+    return num != null ? (num >= 0 ? this[num] : this[num + this.length]) : [].slice.call(this, 0);
+  }
+
+  jQuery.fn.css = function (config) {
+    for (var i = 0; i < config.length; i++) {
+      for (var prop in config) {
+        this[i].style[prop] = config[prop];
+      }
+    }
+    return this;
+  }
+
+  jQuery.fn.add = function (selector) {
+    var curObj = jQuery(selector);
+    var baseObj = this;
+    var newObj = jQuery();
+    for (var i = 0; i < curObj.length; i++) {
+      newObj[newObj.length++] = curObj[i];
+    }
+    for (var j = 0; j < baseObj.length; j++) {
+      newObj[newObj.length++] = baseObj[j];
+    }
+    this.pushStack(newObj);
+    return this;
+  }
+
+  jQuery.fn.end = function () {
+    return this.prevObject;
+  }
+
+
+  jQuery.fn.myOn = function (type, handler) {
+    for (var i = 0; i < this.length; i++) {
+      if (!this[i].cacheEvent) {
+        this[i].cacheEvent = {};
+      }
+      if (!this[i].cacheEvent[type]) {
+        this[i].cacheEvent[type] = [handler];
+      } else {
+        this[i].cacheEvent[type].push(handler);
+      }
+    }
+  }
+
+  jQuery.fn.myTrigger = function (type) {
+    var params = arguments.length > 1 ? [].slice.call(arguments, 1) : [];
+    var self = this;
+    for (var i = 0; i < this.length; i++) {
+      if (this[i].cacheEvent[type]) {
+        //可能同一个事件类型 有好多个 所以forEach来触发
+
+        this[i].cacheEvent[type].forEach(function (ele, index) {
+          ele.apply(self, params)
+        })
+      }
+    }
+  }
+
+
+  jQuery.fn.myQueue = function () {
+    var queueName = arguments[0] || 'fx';
+    var addFunc = arguments[1] || null;
+    var len = arguments.length;
+    if (len == 1) {
+      return this[0][queueName];
+    }
+
+    this[0][queueName] == undefined ? this[0][queueName] == [addFunc] : this[0][queueName].push(addFunc);
+    return this;
+  }
+
+  jQuery.fn.myDequeue = function () {
+    var queueName = arguments[0] || 'fx';
+    var queueArr = myQueue(queueName);
+    var func = queueArr.shift();
+    var self = this;
+
+    if (func == undefined) {
+      return;
+    }
+    var next = function () {
+      self.myDequeue(queueName);
+    }
+    func(next);
+    return this;
+  }
+
+
+  function greStyle(dom, type) {
+    if (window.getComputedStyle) {
+      return window.getComputedStyle(dom, null)[type];
+    } else {
+      return dom.currentStyle[type];
+    }
+
+  }
+
+
+  function startMove(dom, cssObj, callback) {
+    clearInterval(this.timer);
+    var speed = null;
+    var cur = null;
+    var lock = true;
+    dom.setInterval(function () {
+      for (var prop in cssObj) {
+        if (prop == 'opacity') {
+          cur = parseFloat(getStyle(dom, prop)) * 100;
+        } else {
+          cur = parseInt(getStyle(dom, prop));
+        }
+
+        speed = (cssObj[prop] - cur) / 7;
+        speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+
+        if (prop == 'opacity') {
+          dom.style.opacity = (cur + speed) * 100;
+
+        } else {
+          dom.style[prop] = cur + speed + 'px';
+        }
+
+        if (cur != cssObj[prop]) {
+          lock = false;
+
+        }
+        if (lock) {
+          clearInterval(dom.timer);
+          typeof callback == 'function' && callback();
+        }
+      }
+    }, 30);
+    return this
+  }
+
+
+  jQuery.fn.animate = function (json, callback) {
+    var time = 0;
+    var len = this.length;
+    var self = this;
+    var baseFunc = function (next) {
+      for (var i = 0; i < len; i++) {
+        startMove(self[i], json, function (next) {
+          time++;
+          callback && callback();
+          next();
+        })
+      }
+    }
+    this.myQueue('fx', baseFunc);
+    if (this.myQueue('fx').length == 1) {
+      this.myDequeue('fx');
+    }
+    return this;
+  }
+
+
+  jQuery.callback = function () {
+    var option = arguments[0] || '';
+    var list = [];
+    var fired = false;
+    var args = [];
+    var fireIndex;
+    var fire = function () {
+      for (; fireIndex < list.length; fireIndex++) {
+        list[fireIndex].apply(window, args);
+      }
+      if (option.indexOf('once') != -1) {
+        list = [];
+        fireIndex = 0;
+
+      }
+    }
+
+    return {
+      add: function (func) {
+        list.push(func);
+        if (option.indexOf('memory') != -1 && fired) {
+          fire();
+        }
+        return this;
+      },
+      fire: function () {
+        args = arguments;
+        fireIndex = 0;
+        fired = true;
+        fire();
+      }
+    }
+  }
+
+  jQuery.deferred = function () {
+    var arr = [
+      [
+        jQuery.callback('once memory'), 'done', 'resolve'
+      ],
+      [
+        jQuery.callback('once memory'), 'fail', 'reject'
+      ],
+      [
+        jQuery.callback('memory'), 'progress', 'notify'
+      ]
+    ]
+
+    var lock = true;
+    var deferred = {};
+    for (var i = 0; i < arr.length; i++) {
+      deferred[arr[i][1]] = (function (index) {
+        return function (func) {
+          arr[index][0].apply(func)
+        }
+      }(i))
+
+      deferred[arr[i][2]] = (function (index) {
+        return function () {
+          var args = arguments;
+          if (lock) {
+            arr[i][0].fire.apply(window, args);
+            arr[index][2] == 'resolve' || arr[index][2] == 'reject' ? lock == false : lock == true;
+          }
+        }
+      }(i))
+    }
+    return deferred
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  (function () {
+    function jQuery(selector) {
+      return new jQuery.prototype.init()
+    }
+    jQuery.prototype.init.prototype = jQuery.prototype;
+
+
+
+    window.$ = window.jQuery = jQuery;
+  }())
+
+</script>
+
+</html>

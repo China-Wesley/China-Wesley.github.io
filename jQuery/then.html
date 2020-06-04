@@ -1,0 +1,77 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-16 20:46:33
+ * @LastEditTime: 2020-03-17 20:38:54
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\jQuery.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="jquery.min.js"></script>
+<script>
+  //核心 then
+  var df = $.Deferred();
+  //相当于只注册了一次 reslove() 的话 打印done1 done2 之后如果reject（）
+  //是不会执行的
+  // df.done(function () {
+  //   console.log('done1')
+  // }).fail(function () {
+  //   console.log('fail');
+  // }).progress(function () {
+  //   console.log('progress')
+  // }).done(function () {
+  //   console.log('done2');
+  // });
+  //
+
+
+  //负责的是注册  搞清楚 其他的大致相同
+  //简化注册写法  then里面对应的 第一个函数是done  第二个函数是fail 第三个函数是progress
+  df.then(function () {
+      console.log('done1');
+      var innerDf = $.Deferred();
+      //返回值如果是延时对象 那么之后地then 就不是以df为对象了 而是以新创建的延时对象
+      setTimeout(function () {
+        innerDf.resolve('duyi');
+      }, 1500)
+      return innerDf.promise();
+    }, function () {
+      console.log('fail');
+      return 'no';
+    },
+    function () {
+      console.log('progress');
+      return 'wait';
+    }).then(
+    function (ms) {
+      //ms 的值其实是 ‘ok’ 这就是传递参数 第二次then的时候回获取到参数
+      console.log(ms);
+    },
+    function (ms) {
+      console.log('fail' + ms);
+    },
+    function (ms) {
+      console.log('progress' + ms);
+    }).then(function () {
+    //还可以一直 then 地传参 传下去
+  })
+
+
+  $.ajax()
+  //可以接力式处理参数 
+  // 也可以同时注册多个
+
+</script>
+
+</html>

@@ -1,0 +1,39 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-16 17:51:04
+ * @LastEditTime: 2020-03-16 20:43:30
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\jQuery代码.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script src="jquery.min.js"></script>
+<script>
+  function deal(res) {
+    console.log(res);
+  }
+
+  $.ajax({
+    url: 'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',
+    type: 'GET',
+    data: {
+      wd: 'nba',
+      cb: 'deal'
+    },
+    dataType: 'jsonp'
+  })
+
+</script>
+
+</html>

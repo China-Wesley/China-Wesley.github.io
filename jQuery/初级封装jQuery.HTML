@@ -1,0 +1,964 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-12 20:31:47
+ * @LastEditTime: 2020-03-27 15:30:53
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\初级封装jQuery.HTML
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <div class="dome">1</div>
+  <div class="dome">2</div>
+  <div class="dome">3</div> -->
+  <!-- <div id="con">4</div>
+  <div class="wrapper">
+    <div class="dome">1</div>
+    <div class="dome">2</div>
+    <div class="dome">3</div>
+  </div>
+  <ul>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul> -->
+  <div class="demo"></div>
+  <script>
+    (function () {
+      //这里创建了一个 jQuery 函数
+      function jQuery(selector) {
+        //这里 返回的是一个 jQuery 原型链上的一个函数
+        //对他 new 了之后 变成一个实例对象返回出去
+        //当外部调用的时候 进入这个实例方法
+
+        return new jQuery.prototype.init(selector);
+
+        //这里 new 实际上是把 init这个函数 构造出来的类数组 实例化 (可以这样理解)
+      }
+      //这里这个 selector 的参数 就是我们选中的 dom对象
+
+      jQuery.prototype.init = function (selector) {
+        // // var this = {
+        //        0 ： dom,
+        //        1 : dom,
+        //   length : 0,
+        //  _proto_ : Object.prototype;(这里this 的原型)
+        // };  (this的隐式三段式)
+        this.length = 0;
+        //在这里 假设 selector 是null 或 undefined
+        if (selector == null) {
+          return this;
+        }
+        if (typeof selector == 'string' && selector.indexOf('.') != -1) {
+          //这里言外之意 indexOf('.') 即以点开头 那么这里是一个 class选择器
+          var dom = document.getElementsByClassName(selector.slice(1));
+          //这里 .slice(1) 是为了去掉那个 点 变成一个规范的 class名
+        } else if (typeof selector == 'string' && selector.indexOf('#') != -1) {
+          var dom = document.getElementById(selector.slice(1));
+          //那么同理 这里是一个 ID 选择器
+        }
+
+        //轮到这一步判断时 说明 传入的selector既不是 null undefined 也不是 字符串选择器
+        //所以到这一步判断是不是dom对象
+        // if (selector instanceof Element) {
+        //   //在这里 如何判断 是不是dom 对象？ 判断 传入的selector的原型链上有没有 Element
+        //   //类似于 判断 数组 的原型链上有没有 Array
+        //   this[0] = selector;
+        //   this.length++;
+        // }
+
+        //(上一轮被注释的 if 判读 已经被柔和进这一轮了)
+        if (selector instanceof Element || dom.length == undefined) {
+          //这里 dom.length 的判断实际上是 看 是不是只选中了 一个 dom
+          //如果是的话 那么 就是 id 选择器
+          this[0] = dom || selector;
+          this.length++;
+        } else {
+          for (var i = 0; i < dom.length; i++) {
+            this[i] = dom[i];
+            this.length++;
+          }
+        }
+        //return this  (由上可知 这里的 this 返回的其实是一个类数组 包含了 dom 对象)
+      }
+
+      jQuery.prototype.css = function (config) {
+        //   这里的config实际上传进来的是一个对象
+        for (var i = 0; i < this.length; i++) {
+          //在这里遍历的时候就是为了把 对象中对应的 css属性赋给 每一个dom
+          for (var prop in config) {
+            this[i].style[prop] = config[prop];
+          }
+        }
+        //链式操作
+        return this;
+        //究极精髓所在
+      }
+
+
+      // get用于获取dom 获取num索引下的dom
+
+      jQuery.prototype.get = function (num) {
+        // if (num == null) {
+        //   //这一步是类数组 转化为 数组  (空截方法)
+        //   return [].slice.call(this, 0);
+        // } else {
+        //   if (num >= 0) {
+        //     return this[num];
+        //   } else {
+        //     return this[num + this.length];
+        //   }
+        // }
+        return num != null ? (num >= 0 ? this[num] : this[num + this.length]) : [].slice.call(this, 0);
+      }
+
+
+      jQuery.prototype.eq = function (num) {
+        var dom = num != null ? (num >= 0 ? this[num] : this[num + this.length]) : null;
+        return this.pushStack(dom);
+        //这里的 dom 是原生dom 应该执行 pushStack()函数中的 else判断
+        // return $(dom);
+        // $(dom) 把一个原生 dom 对象包装成一个 jQuery 对象
+      }
+
+      //运用一个 prevObject
+      jQuery.prototype.pushStack = function (dom) {
+        // //判断 newObj 是不是一个 jQuery 对象
+        // if (dom.constructor == jQuery) {
+        //   //这里的this 指的是调用 pushStack 的对象
+        //   //实际上相当于 add() 函数中的 baseObj 即调用了 add()函数的对象
+        //   //这里实现了一个完美的传递
+        //   dom.prevObject = this;
+
+        // } else {
+        //   dom = jQuery(dom);
+        //   dom.prevObject = this;
+        // }
+
+        /*简化版*/
+        if (dom.constructor != jQuery) {
+          dom = jQuery(dom);
+        }
+        dom.prevObject = this;
+
+        return dom;
+      }
+
+      jQuery.prototype.add = function (selector) {
+        //在这里 selector 已经是选好的元素了 所以直接用 jQuery方法
+        var curObj = jQuery(selector);
+        //curObj 言外之意就是 add() 方法传入的参数对应的dom元素的集合
+        // 这里的 this 指的是 调用 this 方法的 对象；
+        //baseObj()方法则对应上一层dom 元素
+        var baseObj = this;
+        //这里new 一个新的jQuery对象 来存放合并后的
+        var newObj = jQuery();
+
+        for (var i = 0; i < curObj.length; i++) {
+
+          newObj[newObj.length++] = curObj[i];
+        }
+
+        for (var i = 0; i < baseObj.length; i++) {
+
+          newObj[newObj.length++] = baseObj[i];
+        }
+        this.pushStack(newObj);
+        // newObj.prevObject = this;
+        return newObj;
+      }
+
+      jQuery.prototype.end = function () {
+        return this.prevObject;
+      }
+
+      jQuery.prototype.myOn = function (type, handle) {
+        //这里的this表示调用 myOn方法的对象 
+        for (var i = 0; i < this.length; i++) {
+          //在这里 判断是否有事件池来 缓存 存储事件  没有的话 给他加上
+          if (!this[i].cacheEvent) {
+            this[i].cacheEvent = {};
+          }
+          // 判断事件池当中是否有 对应输入的 type 事件 如果没有 给事件池加上对应的事件属性
+          if (!this[i].cacheEvent[type]) {
+            this[i].cacheEvent[type] = [handle];
+            //在这里 cacheEvent[type]的值设置成一个数组
+          } else {
+            //最后 如果有 那么直接 直接把
+            /*
+              cacheEvent = {
+                type: [handle];
+
+              }*/
+            //这一步 的判断是 如果cacheEvent[type]有值 直接把新传进来的事件函数 方法 添加到数组末尾
+            this[i].cacheEvent[type].push(handle);
+          }
+        }
+      }
+
+      jQuery.prototype.myTrigger = function (type) {
+        //这一步使得 myTrigger方法的参数不用以数组形式传入 
+        var params = arguments.length > 1 ? [].slice.call(arguments, 1) : [];
+        var self = this;
+        for (var i = 0; i < this.length; i++) {
+          //在这里 判断 事件池当中是否已经有了对应的 事件
+          if (this[i].cacheEvent[type]) {
+            // 便利事件池当中的事件 forEach当中获取到的ele实际上是 cacheEvent[type]所对应的数组
+            /*
+            handle = function(){};
+             cacheEvent = {
+               type: [handle，handle,handle];
+
+             }*/
+            this[i].cacheEvent[type].forEach(function (ele, index) {
+              //这里为每一个 handle函数传参 以数组形式 把handle 函数的this 从window 改到指向调用myTrigger()方法的对象；
+              ele.apply(self, params);
+            });
+          }
+        }
+      }
+
+      jQuery.prototype.myQueue = function () {
+        //这里的queueObj 指的是调用 myQueue方法的 jQuery对象
+        var queueObj = this; //queueObj当中其实是记录了一个 dom 的
+        //如果不对 定义的队列进行命名的话 有一个内置的 默认名称 'fx'
+        var queueName = arguments[0] || 'fx';
+        var addFunc = arguments[1] || null;
+        var len = arguments.length;
+
+        //这里为的是判断传入了几个参数
+        if (len == 1) {
+          //获取队列
+          return queueObj[0][queueName];
+        }
+
+
+        //添加队列
+        //这里目的是为了往队列当中去加东西  
+        //官方的 jQuery 实际上定义了一个全局构造函数 Data 通过Data来创建一个全局的对象 {} 
+        //再根据对象进行对应的数据的存储 (我们的自定义方法直接存在 dom上 简化一些)
+        queueObj[0][queueName] == undefined ? queueObj[0][queueName] = [addFunc] : queueObj[0][queueName].push(
+          addFunc);
+
+        return this;
+
+        //上面这一步中是判断 dom{chain:?}中有没有chain的属性值
+      }
+
+      jQuery.prototype.myDequeue = function () {
+        var self = this;
+        var queueName = arguments[0] || 'fx';
+        //获取队列数组
+        var queueArr = this.myQueue(queueName);
+
+        // 创建一个函数 把queueArr数组中 储存的函数 弹出数组
+
+        var curFunc = queueArr.shift();
+        //这里是递归的出口
+
+        // 看看里面有没有弹出东西 如果没有 就return 什么也不干
+        if (curFunc == undefined) {
+          return;
+        }
+
+        //造一个next函数来递归
+        //当curFunc函数执行了 next之后 next当中其实是在对队列进行一次出队 
+        //那么出队后又形成了一次递归 继续判断 不停的往下执行
+        //直到没有出队的元素 如上面判断的一样 curFunc == undefined 就作为递归的出口
+        //结束执行
+        //next 表示队列中的下一个值  ！！！！！这一点要明确
+        var next = function () {
+          //这里的self指的是 调用myDequeue方法的对象
+          //如果这里传的是 this 那么当 curFunc(next);执行后 里面的this由于没有对象去调用它
+          //他会指向 window 
+          /*
+            .queue('chain',function(next){
+              $(this).animate({width: 200,height: 200});
+              next();
+            })
+          */
+          //像上面那样 没有东西去调用 next() 它的this将会指向 window 所以要用self
+          self.myDequeue(queueName);
+        };
+        //这里是紧接着上面的判断 如果弹出来有东西 那么就去执行
+        //在里面传next 意思是执行完弹出队列 的函数后 其实内部还会偷偷执行next 
+        //就好比 多传入了参数 他照样会记录再arguments当中
+        curFunc(next);
+
+        return this;
+      }
+
+      jQuery.prototype.myDelay = function (duration) {
+        var queueArr = this[0]['fx'];
+        //next表示的是队列中的下一个值
+        //这里给他添加一个定时器
+        //相当于延时后执行队列中的下一个值  指代的基本是下一个 myAnimate中的 baseFunc
+        queueArr.push(function (next) {
+          setTimeout(function () {
+            next();
+          }, duration);
+        });
+        return this;
+      }
+      jQuery.prototype.myAnimate = function (json, callback) {
+        //传入的json 是目标点 callback 是回调函数
+        var len = this.length;
+        var self = this;
+        //对后添加到队列中的内容函数
+        var baseFunc = function (next) {
+          //判断每一个dom是否运动到目标点 times做一个计数器
+          var times = 0;
+          for (var i = 0; i < len; i++) {
+            //这里 为每一个dom 添加一个运动 每一个运动都有对应的json 之后回调函数是在运动执行完之后
+
+            startMove(self[i], json, function () {
+              //给times加上数 统计一共给多少个dom添加了运动
+              times++;
+              if (times == len) {
+                // 当times == len 时表示都添加上了
+                // 那么我们执行回调 且执行next
+                //callback 表示看看有没有callback 之后callback()表示执行 
+                callback && callback();
+                //要确定的是 baseFunc 是我们的一个队列中的函数
+                //所以这里有next
+                next();
+              }
+            });
+          }
+        };
+        //这里是为我们的baseFunc创建一个队列
+        this.myQueue('fx', baseFunc);
+        //这里是出队 先把队列掏出来 如果只有一个 才出队
+        //接着多次调用 .myAnimate 时一有入队 马上出队 时钟保持它是 1 
+        //这样可以保证只有当 next()执行完之后才会继续执行 确保是一个队列 来进行
+        if (this.myQueue('fx').length == 1) {
+          this.myDequeue('fx');
+        }
+
+
+        //这里是直接copy了之前写过的运动方法
+        function getStyle(dom, style) {
+          if (window.getComputedStyle) {
+            return window.getComputedStyle(dom, null)[style];
+          } else {
+            return dom.currentStyle[style];
+          }
+        }
+
+        function startMove(dom, cssObj, callback) {
+          clearInterval(dom.timer);
+          var speed = null,
+            cur = null; //在这里 cur 为选中dom元素的当前值
+          dom.timer = setInterval(function () {
+            var _stop = true;
+            for (var prop in cssObj) {
+              if (prop == 'opacity') {
+                cur = parseFloat(getStyle(dom, prop)) * 100;
+              } else {
+                cur = parseInt(getStyle(dom, prop));
+              }
+              speed = (cssObj[prop] - cur) / 7;
+              speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+              if (prop == 'opacity') {
+                dom.style.opacity = (cur + speed) / 100;
+              } else {
+                dom.style[prop] = cur + speed + 'px';
+              }
+              if (cur != cssObj[prop]) {
+                _stop = false;
+              }
+            }
+            if (_stop) {
+              clearInterval(dom.timer);
+              typeof callback == 'function' && callback();
+            }
+          }, 30)
+        }
+        return this;
+      }
+
+      //因为是工具方法 所以直接给 jQuery 加
+      jQuery.myCallbacks = function () {
+        //回调函数中可以传很多中参数 (字符串参数)
+        //'once' 'memory' null
+        var options = arguments[0] || '';
+        //储存add() 中添加进来的方法 比如： function a () {}
+        var list = [];
+
+        //记录当前要执行的函数的索引
+        var fireIndex = 0;
+
+        //一个证明 判断函数有没有fire()过
+        //fire 过的函数就改成 true 一旦fire过 
+        //那么以后再调用
+        var fired = false;
+
+        //全局的参数列表  比如：fire('str')
+        var args = [];
+
+
+        var fire = function () {
+          //这里 直接拿 fireIndex来代替i  不用var i = 0
+          //这个方法是遍历 执行 add()传进来的函数 是一个 fire方法
+          for (; fireIndex < list.length; fireIndex++) {
+            //这里执行时 传入的是全局的参数列表 即在 fire语句之前定义过的参数
+            //function a(){
+            //  arguments -- > 'str'
+            //   this -- > window
+            // }
+            //这里如果不用 apply 将不会执行函数 
+            list[fireIndex].apply(window, args); //？？？？？？？？？？？？？？？？？？？这里没搞太清楚
+          }
+          //这样输入 'once'的时候就只会执行一次了
+          if (options.indexOf('once') != -1) {
+            list = [];
+            fireIndex = 0;
+          }
+        }
+
+        return {
+          add: function (func) {
+            //如果参数想要传一个数组 其实可以用 concat()
+            list.push(func);
+            //
+            if (options.indexOf('memory') != -1 && fired) {
+              //这里的fire 实际上是上面的不是下面的
+              fire();
+            }
+            //链式调用
+            return this;
+          },
+          fire: function () {
+            // 每次fire() 都要把 游标索引归0 
+            //这样每次执行 fire 都可以全部执行
+            fireIndex = 0;
+            //在这里 把fire()接受的参数 赋值给全局的参数列表 
+            args = arguments;
+            fired = true;
+            fire();
+          }
+        }
+
+
+      }
+
+
+      jQuery.myDeferred = function () {
+        // Callbacks 实现 
+        //因为有三种状态 所以用三个 Callbacks 
+        var arrCallbacks = [
+          [ //这里的 once 表示的是 done 和 fail 只执行一次就停止整个函数的执行
+            jQuery.myCallbacks('once memory'), 'done', 'resolve'
+          ],
+          [
+            jQuery.myCallbacks('once memory'), 'fail', 'reject'
+          ],
+          [ //这里 progress 没有once 表示 他不会阻塞函数后续的执行
+            jQuery.myCallbacks('memory'), 'progress', 'notify'
+          ]
+        ]
+
+        var lock = true;
+
+        var deferred = {};
+        //循环结束后 
+        //注册方式结束 
+        //deferred['done'] = function(){}
+        //deferred['fail'] = function(){}
+        //deferred['progress'] = function(){}
+        for (var i = 0; i < arrCallbacks.length; i++) {
+          //arrCallbacks[0][0] -- > jQuery.myCallbacks('once memory')
+          //arrCallbacks[0][1] -- > 'done' ...
+          //done 的本质是  执行myCallbacks 中的 add的功能
+          deferred[arrCallbacks[i][1]] = (function (index) {
+            return function (func) {
+              arrCallbacks[index][0].add(func);
+            }
+          }(i))
+
+          //触发方式
+          deferred[arrCallbacks[i][2]] = (function (index) {
+            return function () {
+              var args = arguments;
+              if (lock == true) {
+                arrCallbacks[index][0].fire.apply(window, args);
+                arrCallbacks[index][2] == 'resole' || arrCallbacks[index][2] == 'reject' ? lock == false :
+                  lock == true;
+              }
+            }
+
+          })(i);
+
+        }
+
+        return deferred;
+      }
+      //这里把init()函数中 this的原型 从原来的 Object.prototype 改为了 jQuery.prototype
+      //这样就可以调用  
+      jQuery.prototype.init.prototype = jQuery.prototype;
+      //在这里是为了形成一个闭包   来这样赋值
+      window.$ = window.jQuery = jQuery;
+    }())
+
+
+
+
+
+    //官方方法
+    // (function (select, factory) {
+    //   var global = window;
+    //   factory(global)
+    // }(window, function (window) {
+    //   //这里才是正文
+    // }))     如下所示
+    (function (global, factory) {
+
+      if (typeof module === "object" && typeof module.exports === "object") {
+        // For CommonJS and CommonJS-like environments where a proper window is present,
+        // execute the factory and get jQuery
+        // For environments that do not inherently posses a window with a document
+        // (such as Node.js), expose a jQuery-making factory as module.exports
+        // This accentuates the need for the creation of a real window
+        // e.g. var jQuery = require("jquery")(window);
+        // See ticket #14549 for more info
+        module.exports = global.document ?
+          factory(global, true) :
+          function (w) {
+            if (!w.document) {
+              throw new Error("jQuery requires a window with a document");
+            }
+            return factory(w);
+          };
+      } else {
+        factory(global);
+      }
+
+      // Pass this if window is not defined yet
+    }(typeof window !== "undefined" ? window : this, function (window, noGlobal) {
+      //这里是init方法   
+
+
+
+      var rootjQuery, //这玩意儿实际上是 $(document)
+
+        // Use the correct document accordingly with window argument (sandbox)
+        document = window.document,
+
+        // A simple way to check for HTML strings
+        // Prioritize #id over <tag> to avoid XSS via location.hash (#9521)
+        // Strict HTML recognition (#11290: must start with <)
+        rquickExpr = /^        (   ?:   \s*(<[\w\W]+>)[^>]*        |        #([\w-]*)      )         $/,
+        // 将以上正则分开来看   ?: 这一部分 一般来说是忽略的 你把他看成一个 三目运算符
+        //\s*(不管几个空格)     (<[\w\W]+>)(不管<>当中有什么)    [^>]* (在 > 后面还有多少其他字符)  ep: $('   <div/>demo') 
+        // #([\w-]*)   这个部分是匹配 id 的 - 小短线代表着 id中的小短线
+
+
+
+
+        // jQuery.fn   实际上是  jQuery.prototype
+        init = jQuery.fn.init = function (selector, context) {
+          var match, elem;
+
+          // HANDLE: $(""), $(null), $(undefined), $(false)
+          if (!selector) {
+            return this;
+          }
+
+          // Handle HTML strings
+          if (typeof selector === "string") {
+            //selector.charAt(0) 新版本直接用 selector[0]  
+            //selector.charAt(selector.length - 1)  同理  selector[selector.length - 1]
+            //selector.length >= 3 排除 <> 这样的形式
+
+            if (selector.charAt(0) === "<" && selector.charAt(selector.length - 1) === ">" && selector.length >=
+              3) {
+              // Assume that strings that start and end with <> are HTML and skip the regex check
+              match = [null, selector, null];
+
+            } else {
+              match = rquickExpr.exec(selector);
+              //id 会放在 match[2] 中   <div/>这种则会放在 match[1]中
+              //exec 返回的数组 [正则匹配的所有内容， 第一个子表达式匹配的内容， 第二个。。。， 第三个 。。。]
+            }
+
+            // Match html or make sure no context is specified for #id
+            //  
+            if (match && (match[1] || !context)) {
+
+              // HANDLE: $(html) -> $(array)
+              if (match[1]) {
+
+                // 这里的context其实就两种可能
+                // 1、 {
+                //   html: 'doyi',
+                //   css: {color: 'red'}
+                // }
+                //2、$('.demo')
+                //这里之所以context[0]  是因为在jQuery对象 这个类数组中 第一位是选中的 dom 
+                //这里判断 context 是不是一个jQuery对象
+                context = context instanceof jQuery ? context[0] : context;
+
+                // scripts is true for back-compat
+                // Intentionally let the error be thrown if parseHTML is not present
+
+                //这个 this 一开始是空的  merge可以把第二个参数合并到第一个参数中去
+                //这样 this 就有值了   parseHTML 可以直接用字符串创建 dom
+                jQuery.merge(this, jQuery.parseHTML(
+                  //match[1] 一般是 '<div></div>'长这样   所以可以用 parseHTML方法
+                  match[1],
+                  //parseHTML 的第二个参数一般放 document
+                  //ownerDocument 这个属性指 dom 对应的 document 
+                  // context && context.nodeType  确保context是一个原生 dom
+                  context && context.nodeType ? context.ownerDocument || context : document,
+                  //true 是为了解决 '<script>' 没有 true 的话  script标签是执行不了的
+                  true
+                ));
+
+                // HANDLE: $(html, props)
+                //jQuery.isPlainObject(context) 判断是不是 对象{}
+                //这里判断 是不是但标签 且 context 是不是对象
+                if (rsingleTag.test(match[1]) && jQuery.isPlainObject(context)) {
+
+                  //这里match 是一个废物利用 省的创建新的
+                  for (match in context) {
+                    // Properties of context are called as methods if possible
+                    //判断 $()里面是不是传了函数
+                    if (jQuery.isFunction(this[match])) {
+                      this[match](context[match]);
+
+                      // ...and otherwise set as attributes
+                    } else {
+                      this.attr(match, context[match]);
+                    }
+                  }
+                }
+
+                return this;
+
+                // HANDLE: $(#id)
+              } else {
+
+                //进这个else 说明是 id
+                elem = document.getElementById(match[2]);
+
+                // Check parentNode to catch when Blackberry 4.6 returns
+                // nodes that are no longer in the document #6963
+                if (elem && elem.parentNode) {
+                  //这里之所以  看看父元素节点 是为了防止 elem 是document
+
+                  // Handle the case where IE and Opera return items
+                  // by name instead of ID
+                  if (elem.id !== match[2]) {
+                    return rootjQuery.find(selector);
+                  }
+
+                  // Otherwise, we inject the element directly into the jQuery object
+                  this.length = 1;
+                  this[0] = elem;
+                }
+
+                this.context = document;
+                this.selector = selector;
+
+                // {
+                //   0 : elem,
+                //   length : 1,
+                //   context: document,
+                //   selector: selector  
+                // }
+                //这样构成了一个 jQuery对象
+                return this;
+              }
+
+              // HANDLE: $(expr, $(...))
+            } else if (!context || context.jquery) {
+              return (context || rootjQuery).find(selector);
+
+              // HANDLE: $(expr, context)
+              // (which is just equivalent to: $(context).find(expr)
+            } else {
+              return this.constructor(context).find(selector);
+            }
+
+
+            // HANDLE: $(DOMElement)
+          } else if (selector.nodeType) {
+            this.context = this[0] = selector;
+            this.length = 1;
+            return this;
+
+            // HANDLE: $(function)
+            // Shortcut for document ready
+          } else if (jQuery.isFunction(selector)) {
+            return typeof rootjQuery.ready !== "undefined" ?
+              rootjQuery.ready(selector) :
+              // Execute immediately if ready is not present
+              selector(jQuery);
+          }
+
+          if (selector.selector !== undefined) {
+            this.selector;
+            this.context = selector.context;
+          }
+
+          return jQuery.makeArray(selector, this);
+        };
+
+      // Give the init function the jQuery prototype for later instantiation
+      init.prototype = jQuery.fn;
+
+      // Initialize central reference
+      rootjQuery = jQuery(document);
+    }))
+
+
+
+
+
+
+    //extend 函数封装   对象方法和工具方法共用同一个   函数
+
+
+    //首先 extend 方法作用有：
+    //1、添加插件 extend({a: function(){}})    最多 1 个参数
+    //2、浅层克隆 extend(obj1,obj2,...)        最少 2 个参数
+    //3、深层克隆 extend(true,obj1,obj2,...)   最少 3 个参数
+
+    //结构主要是 3 个 if 1 个 for
+    jQuery.extend = jQuery.fn.extend = function () {
+      var src, copyIsArray, copy, name, options, clone,
+        target = arguments[0] || {},
+        i = 1,
+        length = arguments.length,
+        deep = false;
+
+      // Handle a deep copy situation
+      //这里判断是不是  深层克隆
+      if (typeof target === "boolean") {
+        deep = target;
+
+        // skip the boolean and the target
+        // target 是目标函数 即 把参数克隆到target中去
+        target = arguments[i] || {};
+        // i 一开始设置的是 1 这样 target 的值就是 深层克隆的 obj1 了
+        i++;
+      }
+
+      // Handle case when target is a string or something (possible in deep copy)
+      if (typeof target !== "object" && !jQuery.isFunction(target)) {
+        //这里 如果 target 不是一个对象 也不是一个方法函数(函数也可以认为是对象)
+        //那么就把target设置成 {}
+        target = {};
+      }
+
+      // extend jQuery itself if only one argument is passed
+      if (i === length) {
+
+        //这里的this 实际指的是 调用 target方法的 jQuery对象 
+        //这个 if 是为了判断是不是 添加插件 因为插件是要添加到 jq对象中去的
+        //所以在这里 target 是 this 
+        target = this;
+        i--;
+      }
+
+      for (; i < length; i++) {
+        // Only deal with non-null/undefined values
+        if ((options = arguments[i]) != null) {
+          // 这里判断 参数是不是空
+          // Extend the base object
+          for (name in options) {
+            // 这里的options实际上是{a: function(){}}
+            src = target[name];
+            copy = options[name];
+
+            // Prevent never-ending loop
+            //这里防止循环引用
+            //循环引用是啥
+            //就是 
+            /*
+            var a = {
+
+            }
+            var b = {
+              son: a
+            }
+            a.son = b.son  (等同于 $.extend(a, b)),
+            这样 造成 a中的属性 会有无限个 son 属性的套娃
+            
+            */
+            if (target === copy) {
+              //通过这样 就不会把 son 的值copy进去 阻止了循环引用
+              continue;
+            }
+
+            // Recurse if we're merging plain objects or arrays
+            // deep一开始是false 先逃过
+            //如copy的对象是对象或者数组才进这个if 
+            if (deep && copy && (jQuery.isPlainObject(copy) || (copyIsArray = jQuery.isArray(copy)))) {
+
+              if (copyIsArray) {
+                copyIsArray = false;
+                clone = src && jQuery.isArray(src) ? src : [];
+
+              } else {
+                clone = src && jQuery.isPlainObject(src) ? src : {};
+              }
+              //这里 clone 作为一个中间层  
+
+              // Never move original objects, clone them
+              target[name] = jQuery.extend(deep, clone, copy);
+
+              // Don't bring in undefined values
+            } else if (copy !== undefined) {
+              //这一步 针对插件扩展
+              //在jq对象中添加 于{a: function(){}}添加相同 属性名
+              target[name] = copy;
+            }
+          }
+        }
+      }
+
+      // Return the modified object
+      return target;
+    };
+
+
+
+
+
+
+
+    /*执行测试区域*/
+
+    // $('.dome')
+    //   .css({
+    //     width: '100px',
+    //     height: '200px',
+    //     background: 'red'
+    //   })
+    //   .css({
+    //     border: '1px solid black'
+    //   })
+
+    // $('#con').css({
+    //   width: '400px',
+    //   height: '200px',
+    //   background: 'red'
+    // })
+    // console.log($('.dome').get(0));
+    // console.log($('.dome').eq());
+
+    // $('.wrapper')
+    //   .add('ul')
+    //   .css({
+    //     position: 'relative'
+    //   })
+    //   .css({
+    //     position: 'absolute'
+    //   })
+    //   .end()
+    //   .css({
+    //     position: 'absolute'
+    //   })
+
+
+    // console.log($('.wrapper').add('.dome'));
+
+
+
+    // $('.demo')
+    //   .css({
+    //     position: 'absolute',
+    //     left: 0,
+    //     top: 0,
+    //     width: '100',
+    //     height: '100',
+    //     backgroundColor: 'orange'
+    //   }).myAnimate({
+    //     width: '120',
+    //     height: '120',
+    //     left: 100,
+    //     top: 100
+    //   })
+    //   .myDelay(100)
+    //   .myAnimate({
+    //     width: '220',
+    //     height: '220',
+    //     left: 200,
+    //     top: 200
+    //   })
+    //   .myDelay(100)
+    //   .myAnimate({
+    //     width: '320',
+    //     height: '320',
+    //     left: 300,
+    //     top: 300
+    //   })
+
+    // var mc = $.myCallbacks('memory');
+
+    // function a(ms) {
+    //   console.log('a', ms);
+    //   // console.log(this.str);
+    // }
+
+    // function b(ms) {
+    //   console.log('b', ms);
+    // }
+
+    // function c(ms) {
+    //   console.log('c', ms);
+    // }
+
+    // mc.add(a);
+    // mc.add(b);
+    // mc.fire('once');
+    // mc.add(c);
+    // // mc.fire()
+    // function create() {
+    //   var df = $.myDeferred();
+
+    //   setInterval(function () {
+    //     var score = Math.random() * 100;
+    //     if (score > 60) {
+    //       df.resolve('congradulation!');
+    //     } else if (score < 50) {
+    //       df.reject('get out')
+    //     } else {
+    //       df.notify('wait...')
+    //     }
+    //   }, 1500);
+    //   return df;
+    // }
+
+
+    // var df = create();
+
+
+    // df.done(function (ms) {
+    //   console.log('ok' + ms);
+    // });
+
+    // df.fail(function (ms) {
+    //   console.log('no' + ms);
+    // });
+
+    // df.progress(function (ms) {
+    //   console.log('wait' + ms);
+    // });
+
+  </script>
+  <!-- <script src="jquery.min.js"></script> -->
+</body>
+
+</html>

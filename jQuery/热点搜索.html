@@ -1,0 +1,183 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-15 15:05:03
+ * @LastEditTime: 2020-03-15 20:00:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\小练习.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* css 初始化 */
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tpl {
+      display: none;
+    }
+
+    .clearfix::after {
+      content: '';
+      display: block;
+      clear: both;
+      overflow: hidden;
+    }
+
+    .fl {
+      float: left;
+    }
+
+    .fr {
+      float: right;
+    }
+
+    .showItem {
+      border-bottom: 1px solid #747174;
+      padding: 5px;
+    }
+
+    /* 其他样式 */
+    .wrapper {
+      border: 1px solid #ccc;
+      padding: 10px 5px;
+      width: 350px;
+      margin: 100px auto;
+    }
+
+    .wrapper .headSection {
+      margin-bottom: 10px;
+
+    }
+
+    .wrapper .headSection .headSection-1 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .wrapper .headSection .headSection-2 {
+      color: #08f;
+      cursor: pointer;
+
+    }
+
+    .wrapper .nav .num {
+      color: #fff;
+      background: #0bf;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      display: inline-block;
+    }
+
+    .wrapper .nav .mes::after {
+      content: '';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+
+    }
+
+    .wrapper .nav .mes.up::after {
+      background-color: red;
+      border-radius: 50%;
+
+    }
+
+    .wrapper .nav .mes.low::after {
+      background-color: green;
+      border-radius: 50%;
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- 简单的热点排名 -->
+  <div class="wrapper">
+    <div class="headSection clearfix">
+      <span class="headSection-1 fl">搜索热点</span>
+      <span class="headSection-2 fr">换一换</span>
+    </div>
+    <ul class="nav">
+      <!-- 拿这个li当作模板 -->
+      <li class="tpl clearfix">
+        <span class="num">1</span>
+        <span class="text">金星</span>
+        <span class="mes fr">33</span>
+      </li>
+    </ul>
+  </div>
+</body>
+<script src="jquery.min.js"></script>
+<script src="data.js"></script>
+<script>
+  (function (data) {
+    // 初始化变量
+    var wrapper = $('.wrapper');
+    var nav = wrapper.find('.nav');
+    //这里定义的是前三位的背景颜色
+    var colorsArray = ['#f54545', '#ff8547', '#ffac38'];
+    //这个参数记录页数
+    var curPage = 0;
+    var totalPage = Math.ceil(data.length / 10);
+    //1 + curPage * 10 像这样子 比如当切换到第二页的时候 那么 1 + curPage * 10 = 11
+    //用上面的方法来计算每一页的对应序号
+
+    //初始化样式让 ul 一开始是隐藏的
+    nav.hide();
+
+    function bindEvent() {
+      wrapper.find('.headSection-2').on('click', function () {
+        // 这里仔细算的话会发现 不停的在 0,1,2,3之间循环
+        curPage = ++curPage % totalPage;
+
+        renderPage(data);
+
+      })
+    }
+
+    function renderPage(data) {
+      //清空之前的 li
+
+      nav.hide().find('.showItem').remove();
+      //根据数据渲染页面
+      //这里的len 是判断剩下的元素够不够一整页来显示
+      var len = (data.length - curPage * 10) >= 10 ? 10 : (data.length - curPage * 10);
+
+      // 控制每一页应该渲染多少数据
+      for (var i = 0; i < len; i++) {
+        //这里获取 li 并且把它 clone 然后把 tpl 类名去掉 添加上我们新的 showItem类名
+
+        var clone = wrapper.find('.tpl').clone().removeClass('tpl').addClass('showItem');
+        //这里是取出每一个li 的数据   满足每一页渲染 10 个数据
+
+        var ele = data[i + curPage * 10];
+
+        clone.children('span').eq(0)
+          .text(i + curPage * 10 + 1).css('background', curPage == 0 && colorsArray[i + curPage])
+          .next()
+          .text(ele.title)
+          .next(ele.search)
+          .addClass(ele.search > ele.hisSearch ? 'up' : 'low');
+        nav.append(clone);
+
+      }
+
+      nav.fadeIn();
+    }
+    bindEvent();
+    renderPage(data);
+  }(data));
+
+</script>
+
+</html>

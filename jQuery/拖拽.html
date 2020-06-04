@@ -1,0 +1,73 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-12 21:02:28
+ * @LastEditTime: 2020-03-16 17:48:19
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\jQuery方法.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .demo {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background: orange;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="demo"></div>
+  <script src="jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+  <script>
+    //拖拽
+    $.fn.extend({
+
+      drag: function () {
+        var disX,
+          disY,
+          self = this;
+
+        //这里之所以每个函数都 填 e 参数 就是为了捕获鼠标的运动 
+        $(this).on('mousedown', function (e) {
+          disX = e.pageX - $(this).offset.left;
+          disY = e.pageY - $(this).offset.top;
+          //鼠标移动的事件 一定要在 mousedown 事件的里面 这样才能够拖拽
+          //这里之所以 要填document 不填this 是因为
+          //this 指的是该元素本身 如果鼠标运动的很快 从元素中出去了 那么元素就不会动了
+          //所以在这里 我们应该填document 这样在整个视窗当中移动 元素都可以获取到 鼠标的运动
+          $(document).on('mousemove', function (e) {
+            //这里用self 是因为 mousemove 事件是 document绑定的
+            //所以我们用 self 将this 还原回 元素
+            $(self).css({
+              left: e.pageX - disX,
+              top: e.pageY - disY
+            });
+
+          });
+
+          $(document).on('mouseup', function (e) {
+            //这里 取消事件 应该在document 当中取消
+            //不要把 mousedown 给取消了
+            $(document).off('mousemove').off('mouseup');
+          })
+        })
+        return this;
+      }
+
+    })
+
+  </script>
+</body>
+
+</html>

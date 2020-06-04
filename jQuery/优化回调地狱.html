@@ -1,0 +1,159 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-17 20:17:16
+ * @LastEditTime: 2020-03-28 16:05:21
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\jQuery\优化回调地狱.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tpl {
+      display: none;
+    }
+
+    .wrapper {
+      overflow: hidden;
+      border: 1px solid black;
+      width: 600px;
+      margin: 100px auto 0px;
+
+    }
+
+    .movieSection {
+      float: left;
+      width: 180px;
+      height: 180px;
+      padding: 10px;
+
+    }
+
+    .movieSection img {
+      width: 100%;
+      height: 150px;
+      cursor: pointer;
+
+    }
+
+    .movieSection h3 {
+      height: 30px;
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- 模板 -->
+    <div class="tpl">
+      <img src="">
+      <h3 class="movieName"></h3>
+    </div>
+  </div>
+</body>
+<script src="jquery.min.js"></script>
+<script>
+  //通过then改变回调地狱
+  //设置立即执行函数 开启ajax功能 记得 设置返回值 即ajax的返回值
+  (function () {
+    return $.ajax({
+      url: '',
+      type: 'POST',
+      data: {
+        username: 'cst',
+        password: '123123'
+      }
+    });
+  }()).then(function (res) {
+    //这里 res 的参数实际上是经过内部的 resolve 
+    //通过原生的ajax 接收服务器数据 返回回来的
+    if (res.data.power == 'root') {
+      return $.ajax({
+        url: '',
+        type: 'GET',
+      });
+    }
+    //函数中只干了一件事情 服从单一职责原理
+  }).then(function (res) {
+    var data = res.data;
+    var $Wrapper = $('.wrapper');
+    //这里之所以 又定义了一个 df 延时对象 
+    //是因为绑定事件的时候 得用到回调 
+    var df = $.Deferred();
+    $.each(data, function (index, ele) {
+      var $MovieSection = $('.tpl').clone().removeClass('tpl').addClass('movieSection');
+      $Wrapper
+        //data 是为了向元素附加数据，就附加在那里 什么时候用 什么时候取
+        //附加在那里 并不改变什么 只是非常单纯的 有了 那么一个数据
+        .data({
+          id: ele.id
+        })
+        .on('click', function () {
+          //这里的 resolve() 执行的其实是上一个ajax
+          //把 延时对象的执行 开关跟 click事件绑定在一起
+          //后面把 延时对象的注册接口 返回出去 让下一个 then去注册
+          df.resolve($(this));
+        })
+        .children()
+        .eq(0).attr('src', ele.poster)
+        .next().text(ele.name);
+
+      $Wrapper.append($MovieSection);
+    });
+    //返回给下一个 then 取注册回调函数 回调函数有什么功能 
+    //这就由 下一个 then 去决定了
+    return df.promise();
+  }).then(function (dom) {
+    return $.ajax({
+      url: '',
+      type: 'GET',
+      data: {
+        //这里的 dom 实际上 是上一个 then中 resolve() 传下来的参数
+        //指的实际上是 $Wrapper
+        movieId: dom.data('id')
+      },
+    })
+  }).then(function (res) {
+    var data = res.data;
+    var direct = data.direct;
+    var gut = data.gut;
+    var minActor = data.mainActor;
+    var screenWriter = data.screenwriter;
+
+    var htmlStr = '<div class="mask">\
+                        <p>导演: ' + direct + '</p>\
+                        <p>剧情: ' + gut + '</p>\
+                        <p>主演: ' + mainActor.reduce(function (prev, curv) {
+      prev += curv + ' ';
+      return prev;
+    }) + '</p>\
+                        <p>编剧: ' + screenWriter.reduce(function (prev, curv) {
+      prev += curv + ' ';
+      return prev;
+    }) + '</p>\
+                        </div>';
+    $(htmlStr).appendTo('body').css({
+      position: 'absolute',
+      left: $(window).outerWidth() / 2,
+      bottom: 100,
+      width: 400,
+      marginLeft: -200
+    });
+  })
+
+</script>
+
+</html>

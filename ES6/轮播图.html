@@ -1,0 +1,120 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-25 13:56:39
+ * @LastEditTime: 2020-03-25 19:45:05
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\JS 收官部分复习\轮播图.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+</body>
+<script>
+  //   //多物体多值 运动
+  //   function getStyle(dom, style) {
+  //     if (window.getComputedStyle) {
+  //       return window.getComputedStyle(null, dom)[style];
+  //     } else {
+  //       return dom.currentStyle[style];
+  //     }
+  //   }
+
+  //   function startMove(dom, cssObj, callback) {
+  //     clearInterval(dom.timer);
+  //     var speed = null;
+  //     cur = null;
+  //     dom.timer = setInterval(function () {
+  //       var _stop = true;
+  //       for (var prop in cssObj) {
+  //         if (prop == "opacity") {
+  //           cur = parseFloat(getStyle(dom, prop)) * 100;
+
+  //         } else {
+  //           cur = parseInt(getStyle(dom, prop));
+  //         }
+  //         //目标数值 - 当前数值
+  //         speed = (cssObj[prop] - cur) / 7;
+  //         speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+  //         //这里一个  -2 -1.5 -1 0 1 1.5 2
+  //         //-1.5 会向-2 取整 1.5 向 2 取整
+  //         if (prop == 'opacity') {
+  //           dom.style.opacity = (cur + speed) / 100;
+  //         } else {
+  //           dom.style[prop] = cur + speed + 'px';
+  //         }
+  //         //如果没有运动到目标数值 那么就不会清理定时器
+  //         if (cur != cssObj[prop]) {
+  //           _stop = false;
+  //         }
+  //       }
+  //       if (_stop) {
+  //         clearInterval(timer);
+  //         typeof callback == 'function' && callback();
+  //       }
+  //     }, 30)
+
+  //   }
+
+  //   function getStyle(dom, style) {
+  //     if (window.getComputedStyle) {
+  //       return window.getComputedStyle(null, dom)[style];
+  //     } else {
+  //       return dom.currentStyle[style];
+
+  //     }
+  //   }
+
+  //   function move(dom, cssObj, callback) {
+  //     clearInterval(timer);
+  //     var speed = null;
+  //     var cur = null;
+  //     dom.timer = setInterval(function () {
+  //       var lock = true;
+  //       for (var prop in cssObj) {
+  //         if (prop == 'opacity') {
+  //           cur = parseFloat(getStyle(dom, prop)) * 100
+  //         } else {
+  //           cur = parseInt(getStyle(dom, prop));
+  //         }
+  //         speed = (cssObj[prop] - cur) / 7;
+  //         speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+  //         if (prop == 'opacity') {
+  //           dom.style.opacity = (cur + speed) / 100;
+
+  //         } else {
+  //           dom.style[prop] = cur + speed + 'px';
+
+  //         }
+  //         if (cur != cssObj[prop]) {
+  //           lock = false;
+
+  //         }
+  //       }
+  //       if (lock) {
+  //         clearInterval(dom.timer);
+  //         typeof callback == 'function' && callback();
+  //       }
+
+  //     }, 30)
+  //   }
+
+</script>
+
+</html>

@@ -1,0 +1,246 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.loader-placeholder-wrap {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.app-content {
+  overflow: hidden;
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.app-icon {
+  display: block;
+  width: 27.3333%;
+  max-width: 205px;
+  border-radius: 12px;
+  position: relative;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+/* 加载动图区域 */
+.loading-logo {
+  display: block;
+  width: 65%;
+  overflow: auto;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 3.847%;
+}
+
+.app-name {
+  margin: 0 auto;
+  text-align: center;
+  width: 81.8666%;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 1);
+  margin-bottom: 4%;
+
+
+}
+
+
+
+.star-wrap {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 4%;
+  width: 33.0666%;
+  overflow: hidden;
+  font-size: 0;
+}
+
+
+
+.star-light li,
+.star-dark li {
+  display: block;
+  float: left;
+  width: 15%;
+  margin-right: 6.25%;
+  font-size: 0;
+
+}
+
+.star-light li img,
+.star-dark li img {
+  width: 100%;
+}
+
+.star-dark li:nth-of-type(5),
+.star-light li:nth-of-type(5) {
+  margin: 0;
+}
+
+.star-light {
+  position: absolute;
+  left: 0%;
+}
+
+/* 星星 */
+.star-dark {
+  display: inline-block;
+}
+
+.star-light {
+  z-index: 1000;
+}
+
+.star-dark,
+.star-light {
+  width: 100%;
+}
+
+.score-0 {
+  left: -100%;
+}
+
+.score-1 {
+  left: -85%;
+}
+
+.score-2 {
+  left: -64%;
+}
+
+.score-3 {
+  left: -42%;
+}
+
+.score-4 {
+  left: -21%;
+}
+
+.score-5 {
+  left: 0%;
+}
+
+.app-span {
+  font-weight: 400;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+  color: rgba(180, 180, 180, 1);
+
+  /* 单行 */
+  overflow: hidden;
+  vertical-align: middle;
+  white-space: nowrap;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+
+.loading-footer {
+  width: 30.2667%;
+  position: absolute;
+  bottom: 5.2474%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+@media only screen and (orientation: portrait) {
+
+
+  /* 适配ipad 及 ipadpro */
+  @media screen and (min-width: 700px) {
+    .app-name {
+      font-size: 40px;
+    }
+
+
+    .app-span {
+      font-size: 28px;
+    }
+
+    .loading-logo {
+      width: 55%;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .app-name {
+      font-size: 42px;
+    }
+  }
+}
+
+@media only screen and (orientation: landscape) {
+  .app-content {
+    width: 50%;
+    top: 6.6667%;
+  }
+
+
+  .app-icon {
+    max-width: 193px;
+  }
+
+  .loading-footer {
+    width: 13.5%;
+  }
+
+  .app-name {
+    font-size: 1.1rem;
+    width: 100%;
+  }
+
+  .app-name,
+  .star-wrap {
+    margin-bottom: 3%;
+  }
+
+  /* 兼容iPhoneX */
+  @media screen and (min-width: 811px) and (max-width: 950px) {
+    .app-icon {
+      width: 23.3333%;
+    }
+
+
+    .loading-logo {
+      width: 55%;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .app-icon {
+      width: 193px;
+    }
+
+    .loading-logo {
+      width: 80%;
+    }
+
+
+    .app-name {
+      font-size: 33px;
+    }
+
+    .app-span {
+      font-size: 20px;
+    }
+  }
+}

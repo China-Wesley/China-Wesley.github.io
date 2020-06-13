@@ -1,0 +1,76 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-03 21:01:31
+ * @LastEditTime: 2020-04-04 12:04:54
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\HTML 5\demo.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    input {
+      display: block;
+    }
+
+    .demo {
+      position: absolute;
+      height: 100px;
+      width: 100px;
+      background-color: orange;
+    }
+
+  </style>
+</head>
+
+<body>
+  <input type="text">
+  <input type="password">
+  <input type="radio">
+  <input type="checkbox">
+  <input type="file">
+  <input type="date">
+  <input type="time">
+  <input type="week">
+  <input type="datetime-local">
+  <input type="number">
+  <input type="email">
+  <input type="color">
+  <input type="range">
+  <input type="search">
+  <input type="url">
+  <input type="submit">
+  <div class="demo" draggable="true"></div>
+
+
+</body>
+<script>
+  var demo = document.getElementsByClassName('demo')[0];
+  var clientX = 0;
+  var clientY = 0;
+  demo.ondragstart = function (e) {
+    clientX = e.clientX;
+    clientY = e.clientY;
+    console.log(clientX);
+    console.log(clientY);
+    console.log(111);
+
+  }
+  demo.ondragend = function (e) {
+    var x = e.clientX - clientX;
+    var y = e.clientY - clientY;
+    console.log(x);
+    console.log(y);
+
+    this.style.left = this.offsetLeft + x + 'px';
+    this.style.top = this.offsetTop + y + 'px';
+  }
+
+</script>
+
+</html>

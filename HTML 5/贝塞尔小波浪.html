@@ -1,0 +1,63 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-04 19:22:03
+ * @LastEditTime: 2020-04-04 19:45:25
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\HTML 5\贝塞尔小波浪.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    .demo {
+      width: 500px;
+      height: 300px;
+      border: 1px solid black;
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas class="demo" width="500px" height="300px"></canvas>
+</body>
+<script>
+  var canvas = document.getElementsByClassName('demo')[0];
+  var ctx = canvas.getContext("2d");
+  var width = canvas.clientWidth;
+  var height = canvas.clientHeight;
+  var offset = 0;
+  var deg = 0;
+
+  setInterval(function () {
+    ctx.clearRect(0, 0, 500, 300);
+    ctx.beginPath();
+    ctx.moveTo(-500 + offset, height / 2);
+    ctx.quadraticCurveTo(width / 4 + offset - 500, height / 2 + Math.sin(deg) * 120, width / 2 + offset - 500,
+      height / 2);
+    ctx.quadraticCurveTo(width / 4 * 3 + offset - 500, height / 2 - Math.sin(deg) * 120, width + offset - 500,
+      height / 2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(0 + offset, height / 2);
+    ctx.quadraticCurveTo(width / 4 + offset, height / 2 + Math.sin(deg) * 120, width / 2 + offset, height / 2);
+    ctx.quadraticCurveTo(width / 4 * 3 + offset, height / 2 - Math.sin(deg) * 120, width + offset, height / 2);
+    ctx.stroke();
+    offset += 2;
+    offset %= 500;
+    deg += .015;
+  }, 1000 / 60)
+  
+</script>
+
+</html>

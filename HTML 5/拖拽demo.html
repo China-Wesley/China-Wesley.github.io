@@ -1,0 +1,95 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-04 14:23:15
+ * @LastEditTime: 2020-04-04 14:40:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\HTML 5\拖拽demo.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .box1,
+    .box2 {
+      position: absolute;
+
+      width: 300px;
+      border: 1px solid black;
+      padding-bottom: 20px;
+      height: auto;
+
+    }
+
+    .box2 {
+      left: 500px;
+
+    }
+
+    li {
+      width: 200px;
+      height: 50px;
+      margin: 10px auto 10px;
+
+      background: #123456;
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="box1">
+    <ul>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+  <div class="box2"></div>
+</body>
+<script>
+  var ondragDom = null;
+  var list = document.getElementsByTagName('li');
+  var box1 = document.getElementsByClassName('box1')[0];
+  var box2 = document.getElementsByClassName('box2')[0];
+
+  for (var i = 0; i < list.length; i++) {
+    list[i].setAttribute("draggable", true);
+    list[i].ondragstart = function (e) {
+
+      //这里注意灵活运用 e.target 即选中事件作用的目标元素
+      //   console.log(e.target);
+      ondragDom = e.target;
+    }
+  }
+
+  box2.ondragover = function (e) {
+    e.preventDefault();
+  }
+  box2.ondrop = function (e) {
+    this.appendChild(ondragDom);
+    ondragDom = null;
+  }
+
+  box1.ondragover = function (e) {
+    e.preventDefault();
+  }
+  box1.ondrop = function (e) {
+    this.appendChild(ondragDom);
+    ondragDom = null;
+  }
+
+</script>
+
+</html>

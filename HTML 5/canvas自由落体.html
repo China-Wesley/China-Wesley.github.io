@@ -1,0 +1,63 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-04 15:22:29
+ * @LastEditTime: 2020-04-04 16:04:25
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\HTML 5\canvas自由落体.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+
+    }
+
+    .demo {
+      width: 500px;
+      height: 500px;
+      border: 1px solid red;
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <canvas class="demo" width="500px" height="500px"></canvas>
+</body>
+<script>
+  //精神操作 面向概率编程
+  //哈哈 你妈的
+  /* @type {HTMLCanvasElement} */
+  var canvas = document.getElementsByClassName('demo')[0];
+  var cxt = canvas.getContext("2d");
+  var height = 0;
+  var u = 0.8;
+  var a = 1;
+  var canvasHeight = canvas.clientHeight;
+  //   console.log(canvasHeight)
+  var timer = null;
+  timer = setInterval(function () {
+    cxt.clearRect(0, 0, 500, 500);
+    cxt.strokeRect(0, height, 50, 50);
+    a += 0.5;
+    height = height + a;
+    if (height >= canvasHeight - 50 && a > 0) {
+      a *= -u;
+      if (Math.abs(parseInt(a)) < 0.1) {
+        clearInterval(timer);
+      }
+    }
+  }, 1000 / 60)
+
+</script>
+
+</html>

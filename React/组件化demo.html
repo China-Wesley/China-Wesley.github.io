@@ -1,0 +1,106 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-02 15:52:04
+ * @LastEditTime: 2020-05-02 16:23:45
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery 源码\React\组件化demo.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="contain"></div>
+</body>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- prop-type库 代替React.propTypes 来对组件对象的 props进行修改 -->
+<script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+  class App extends React.Component {
+    constructor(props) {
+      super(props)
+      //设置动态数组
+      this.state = {
+        todo: ['吃饭', '睡觉', '打豆豆']
+      }
+      this.addTodo = this.addTodo.bind(this);
+    }
+
+    addTodo(fig){
+      // 这里是往数组里添加的方法
+      const {todo} = this.state;
+      todo.push(fig);
+      //setState 这一步非常关键 他保证了数组能够更新 ！！！ 这是state属性的内容
+      //组件总体的数据 渲染更新 再父元素中 setState()
+      this.setState({todo})
+    }
+  
+    render() {
+      const {todo} = this.state
+      // 在这里通过props的方式 向其他的组件类传递 本组件中的属性/方法
+      return (
+        <div>
+            <h1>ADD TODO LIST</h1>
+            <Add len = {todo.length} addTodo = {this.addTodo}/>
+            <List todo = {todo}/>
+        </div>
+      )
+    }
+  }
+
+  class Add extends React.Component {
+    constructor(props){
+      super(props);
+      this.add = this.add.bind(this);
+    }
+
+    add(){
+      const todo = this.inp.value;
+      if(!todo){
+        return
+      }
+      this.props.addTodo(todo);
+      this.inp.value = "";
+    }
+
+    render(){
+        return (
+            <div>
+              <input type="text" ref={inp => this.inp = inp}/>
+              <button onClick = {this.add}>add #{this.props.len + 1}</button>
+            </div>        
+        )
+    }
+  }
+  //每次使用props之前要声明一下 
+  Add.propTypes = {
+    len: PropTypes.number.isRequired,
+    addTodo: PropTypes.func.isRequired
+  }
+  class List extends React.Component {
+    render(){
+      return (
+        <ul>
+          {this.props.todo.map((todo, index) => <li key = {index}>{todo}</li>)}
+        </ul>
+      )
+    }
+  }
+  //类与类之间的数据交互 用props
+  List.propTypes = {
+    todo: PropTypes.array.isRequired
+  }
+  ReactDOM.render( <App/> , document.getElementsByClassName('contain')[0]);
+
+</script>
+
+</html>

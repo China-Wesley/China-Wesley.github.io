@@ -1,0 +1,78 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-05-02 13:15:13
+ * @LastEditTime: 2020-05-02 16:02:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery 源码\React\props.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="contain"></div>
+  <div id="con"></div>
+</body>
+<script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<!-- prop-type库 代替React.propTypes 来对组件对象的 props进行修改 -->
+<script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+<!-- 生产环境中不建议使用 -->
+<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+<script type="text/babel">
+  function List(props){
+        return (
+        <ul>
+            <li>name:{props.name}</li>    
+            <li>age:{props.age}</li>
+            <li>sex:{props.sex}</li>
+        </ul>
+        )
+      
+    }
+    class List extends React.Component{
+        render(){
+            console.log(this)
+            return (
+           <ul>
+            <li>name:{this.props.name}</li>    
+            <li>age:{this.props.age}</li>
+            <li>sex:{this.props.sex}</li>
+           </ul>
+          )
+        }
+    }
+    //设置默认值
+    List.defaultProps = {
+        age: 20,
+        sex: '男'
+    }
+    
+    List.propTypes = {
+        name: PropTypes.string.isRequired,
+        age: PropTypes.number
+    }
+    const p1 = {
+        // name : '王',
+        age: 's',
+        sex: '男'
+    }
+
+    const p2 = {
+        name: '张',
+        age: 's',
+        sex: '女'
+    }
+
+    //渲染时 有两种传参形式 一种展运算符 一种直接赋值
+    ReactDOM.render(<List {...p1}/>, document.getElementById('contain'));
+    ReactDOM.render(<List name = {p2.name} />, document.getElementById('con'));
+</script>
+
+</html>

@@ -1,0 +1,38 @@
+可以简化的 自动播放 及 左右按键那里
+可以抽出一俩个函数出来  累了  不抽了
+//-----------------------------------------------------------
+参数形式
+$(".wrapper").slide({
+   imageArr: ["./img_03.jpg", "./img_02.jpg", "./img_01.jpg"],  //图片数组 按顺序
+   list: $('.wrapper > .slide-items'),  //必填项  
+   width: 500,   //外层宽高
+   height: 300,
+   btn: true,    //是否显示左右按钮
+   bottomIcon: true,   //是否显示底部按钮
+   animateType: 'fade',  //或者填 slide   运动形式
+   autoPlay: true,    //是否自动播放
+   delay: 3000    //延迟
+})
+//-----------------------------------------------------------
+HTML结构 记得打包 CSS 
+  wrapper 这个自定义父级 必须有
+  overflow: hidden;
+  position: relative;(可选)
+<div class="wrapper">
+<div class="slide-items"></div>   slide-items 是固定class
+<div class="slide-items"></div>
+<div class="slide-items"></div>
+</div>
+
+fade效果没有加锁    slide效果加了    是不一样的感觉
+fade不加锁 体验并没有降低 所以没什么事儿
+
+有时候slide 效果 会出错  加个定宽  会解决问题！！！
+<div class="wrapper">
+<div class="slide-items" style="width: 800px(每个slide-items的宽)"></div>   slide-items 是固定class
+<div class="slide-items" style="width: 800px(每个slide-items的宽)"></div>
+<div class="slide-items" style="width: 800px(每个slide-items的宽)"></div>
+</div>
+
+！！！fade不加锁 却不突兀的原因是 用了 CSS3 transition 所以不用加🔒
+ 非常的棒！！！

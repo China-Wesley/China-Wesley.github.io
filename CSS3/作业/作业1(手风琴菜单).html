@@ -1,0 +1,62 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-29 10:49:49
+ * @LastEditTime: 2020-03-29 11:05:42
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业1.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    .wrapper {
+      width: 300px;
+      position: absolute;
+      left: 50%;
+      top: 35%;
+      margin-left: -150px;
+      border: 1px solid black;
+    }
+
+    div:not(:last-of-type) {
+      border-bottom: 1px solid black;
+    }
+
+    a {
+      text-decoration: none;
+      background: #fcc;
+      color: #fff;
+      display: block;
+    }
+
+    .wrapper>div:not(:target) {
+      display: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2>section</h2>
+    <a href="#section1">section1</a>
+    <div id="section1">text</div>
+    <a href="#section2">section2</a>
+    <div id="section2">text</div>
+    <a href="#section3">section3</a>
+    <div id="section3">text</div>
+  </div>
+</body>
+
+</html>

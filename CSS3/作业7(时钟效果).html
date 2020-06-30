@@ -1,0 +1,157 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-01 10:16:44
+ * @LastEditTime: 2020-04-01 21:39:21
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业7(时钟效果).html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    .clock {
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      border: 1px solid black;
+      position: absolute;
+      left: calc(50% - 150px);
+      top: calc(50% - 150px);
+    }
+
+    .needle1 {
+      width: 2px;
+      height: 135px;
+      background-color: red;
+      transform-origin: 100% 100%;
+
+      /* transform: rotate(30deg); */
+      animation: needle 60s steps(4, end) infinite;
+      position: absolute;
+      left: calc(50% - 1px);
+      top: 15px;
+    }
+
+
+
+    /* 自己写的时候 没有灵活运用 steps 手动打了好多帧 */
+    /* 蠢到自己哈哈哈 */
+    @keyframes needle {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      8.3% {
+        transform: rotate(30deg);
+      }
+
+      16.6% {
+        transform: rotate(60deg);
+      }
+
+      24.9% {
+        transform: rotate(90deg);
+      }
+
+      33.2% {
+        transform: rotate(120deg);
+      }
+
+      41.5% {
+        transform: rotate(150deg);
+      }
+
+      49.8% {
+        transform: rotate(180deg);
+      }
+
+      58.1% {
+        transform: rotate(210deg);
+      }
+
+      66.4% {
+        transform: rotate(240deg);
+      }
+
+      74.7% {
+        transform: rotate(270deg);
+      }
+
+      83% {
+        transform: rotate(300deg);
+      }
+
+      91.3% {
+        transform: rotate(330deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+
+    }
+
+    .needle2 {
+      width: 2px;
+      height: 100px;
+      background-color: black;
+      transform-origin: 100% 100%;
+
+      /* transform: rotate(30deg); */
+      animation: needle 3600s infinite;
+      position: absolute;
+      left: calc(50% - 1px);
+      top: 50px;
+    }
+
+    .needle3 {
+      width: 2px;
+      height: 80px;
+      background-color: black;
+      transform-origin: 100% 100%;
+
+      /* transform: rotate(30deg); */
+      animation: needle 43200s infinite;
+      position: absolute;
+      left: calc(50% - 1px);
+      top: 70px;
+    }
+
+    span {
+      width: 600px;
+      position: absolute;
+      top: 10%;
+      left: calc(50% - 300px);
+    }
+
+  </style>
+</head>
+
+<body>
+  <span>看了视频才知道有图片 emm 就懒得再做了 凑合吧哈哈哈哈哈哈哈哈哈哈</span>
+  <div class="clock">
+    <div class="needle1"></div>
+    <div class="needle2"></div>
+    <div class="needle3"></div>
+  </div>
+</body>
+<script src="./jquery.min.js"></script>
+<script>
+  var date = new Date();
+  var seconds = date.getSeconds();
+  var minute = date.getMinutes();
+  var hour = date.getHours();
+
+</script>
+
+</html>

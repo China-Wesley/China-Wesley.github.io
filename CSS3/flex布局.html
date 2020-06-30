@@ -1,0 +1,125 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-30 21:43:00
+ * @LastEditTime: 2020-03-31 19:45:52
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\flex布局.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    div {
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      box-sizing: border-box;
+
+      /* position: absolute; */
+      left: calc(50% - 300px);
+      top: calc(50% - 250px);
+      width: 602px;
+      height: 500px;
+      border: 1px solid black;
+      resize: both;
+      overflow: auto;
+      display: flex;
+      overflow-y: hidden;
+
+      /* 这里是流式布局 */
+      flex-wrap: wrap;
+      align-content: flex-start;
+
+      /* 这是圣杯布局的 主轴 */
+      /* flex-direction: column; */
+      /* 这一部分是居中 */
+      /* display: flex;
+      align-items: center;
+      justify-content: center; */
+
+    }
+
+    .content {
+      /* 这一部分是动态增加导航栏 */
+      /* flex: 1 1 auto; */
+      box-sizing: border-box;
+      width: 200px;
+      height: 200px;
+      border: 1px solid orange;
+      font-size: 20px;
+      line-height: 30px;
+      color: #fff;
+      background: #f40;
+      text-align: center;
+      cursor: pointer;
+      transition: all 1s cubic-bezier(0, 0, 1, 1);
+
+    }
+
+
+    /* 这一部分是 圣杯布局 */
+    /* .header,
+    .footer,
+    .left,
+    .right {
+      flex: 0 0 10%;
+      border: 1px solid green;
+    }
+
+    .con {
+      flex: 1 1 auto;
+      display: flex;
+    }
+
+    .center {
+      flex: 1 1 auto;
+      border: 1px solid green;
+
+    } */
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <!-- <div class="content">天猫</div>
+    <div class="content">淘宝</div>
+    <div class="content">聚划算</div>
+    <div class="content">天猫</div>
+    <div class="content">淘宝</div> -->
+
+
+    <!-- <div class="header"></div>
+    <div class="con">
+      <div class="left"></div>
+      <div class="center"></div>
+      <div class="right"></div>
+    </div>
+    <div class="footer"></div> -->
+
+    <div class="content"></div>
+    <!-- <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div>
+    <div class="content"></div> -->
+
+  </div>
+</body>
+
+</html>

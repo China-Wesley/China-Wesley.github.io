@@ -1,0 +1,93 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-25 11:46:07
+ * @LastEditTime: 2020-05-10 11:48:47
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\JS 收官部分复习\防抖节流.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- <input type="text"> -->
+  <div id="demo">0</div>
+  <button id="btn">点击</button>
+  <script>
+    //防抖
+    function deBounce(handler, delay) {
+      var timer = null;
+      return function () {
+        var _self = this,
+          _arg = arguments;
+        //必须用 timeout
+        clearTimeout(timer);
+        timer = setTimeout(function () {
+          return handler.apply(_self, _arg);
+        }, delay);
+      }
+    }
+
+    // function ajax() {
+    //   console.log(document.getElementsByTagName('input')[0].value)
+    // }
+    // var inp = document.getElementsByTagName('input')[0];
+    // inp.oninput = deBounce(ajax, 1000);
+    // var demo = document.getElementById('demo');
+    // var btn = document.getElementById('btn');
+
+    // 节流
+    // function throttle(handler, wait) {
+    //   var lastTime = 0;
+    //   return function () {
+
+    //     var nowTime = new Date().getTime();
+    //     if (nowTime - lastTime > wait) {
+    //       handler.apply(this, arguments);
+    //       lastTime = nowTime;
+    //     }
+    //   }
+    // }
+
+    // function buy() {
+
+    //   demo.innerText = parseInt(demo.innerHTML) + 1;
+
+    // }
+    // btn.onclick = throttle(buy, 1000);
+
+
+
+    // function throttle(handler,wait){
+    //     var lastTime = 0;
+    //     return function(){
+    //         var nowTime = new Date().getTime();
+    //         if(nowTime - lastTime > wait){
+    //             handler.apply(this,arguments);
+    //             lastTime = nowTime;
+    //         }
+    //     }
+    // }
+
+    // function deBounce(handler,delay){
+    //     var timer = null;
+    //     return function(){
+    //         var _self = this;
+    //         _arg = arguments;
+    //         clearTimeout(timer);
+    //         timer = setTimeout(function(){
+    //             return handler.apply(_self,_arg);
+    //         },delay)
+    //     }
+    // }
+
+  </script>
+</body>
+
+</html>

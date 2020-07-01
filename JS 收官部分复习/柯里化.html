@@ -1,0 +1,79 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-25 13:56:24
+ * @LastEditTime: 2020-03-25 14:58:51
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\JS 收官部分复习\柯里化.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function add(a, b, c, d) {
+      return a + b + c + d;
+
+    }
+
+    // function fixedParamsCurry(fn) {
+    //   var args = [].slice.call(arguments, 1);
+    //   return function () {
+    //     var newArgs = args.concat([].slice.call(arguments, 0));
+    //     return fn.apply(this, newArgs);
+    //   }
+    // }
+
+    // function Curry(fn, length) {
+    //   var length = length || fn.length;
+    //   return function () {
+    //     if (arguments.length < length) {
+    //       var _arg = [fn].concat([].slice.call(arguments, 0));
+    //       return Curry(function (_arg) {
+
+    //         var args = [].slice.call(arguments, 1);
+    //         return function () {
+    //           var newArg = args.concat([].slice.call(arguments, 0));
+    //           return _arg[0].apply(this, newArg);
+    //         }
+    //       }, length - arguments.length);
+    //     } else {
+    //       return fn.apply(this, arguments);
+    //     }
+    //   }
+    // }
+
+    // var newA = Curry(add);
+    // console.log(newA(1)(2, 3, 4))
+
+
+    function fixedParamsCurry(fn) {
+      var args = [].slice.call(arguments, 1);
+      return function () {
+        var newArg = args.concat([].slice.call(arguments, 0));
+        return fn.apply(this, newArg);
+      }
+    }
+
+    function Curry(fn, length) {
+      var len = length || fn.length;
+      return function () {
+        if (arguments.length < len) {
+          var _arg = [fn].concat([].slice.call(arguments, 0));
+          return Curry(fixedParamsCurry.apply(this, _arg), len - arguments.length);
+        } else {
+          return fn.apply(this, arguments);
+        }
+      }
+    }
+
+  </script>
+</body>
+
+</html>

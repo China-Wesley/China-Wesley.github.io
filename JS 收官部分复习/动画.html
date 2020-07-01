@@ -1,0 +1,98 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-25 13:56:33
+ * @LastEditTime: 2020-03-25 16:18:20
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\JS 收官部分复习\动画.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      width: 66px;
+      height: 66px;
+      background: orange;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div></div>
+</body>
+<script>
+  var oDiv = document.getElementsByTagName('div')[0];
+  oDiv.onclick = function () {
+    startMove(this);
+  }
+
+  function startMove(dom) {
+    var timer = null;
+    clearInterval(timer);
+    var iSpeedX = 10;
+    var iSpeedY = 8;
+    var u = 0.8;
+    var a = 9.8;
+
+    timer = setInterval(function () {
+      //注意 不要给 X 加速度
+      iSpeedY += a;
+
+      var newTop = dom.offsetTop + iSpeedY;
+      var newLeft = dom.offsetLeft + iSpeedX;
+      if (newTop >= document.documentElement.clientHeight - dom.clientHeight) {
+        iSpeedY *= -1;
+        iSpeedY *= u;
+        iSpeedX *= u;
+        newTop = document.documentElement.clientHeight - dom.clientHeight;
+      }
+      if (newTop <= 0) {
+        iSpeedY *= -1;
+        iSpeedY *= u;
+        iSpeedX *= u;
+        newTop = 0;
+      }
+
+      if (newLeft >= document.documentElement.clientWidth - dom.clientWidth) {
+        iSpeedX *= -1;
+        iSpeedY *= u;
+        iSpeedX *= u;
+        newLeft = document.documentElement.clientWidth - dom.clientWidth;
+      }
+      if (newLeft <= 0) {
+        iSpeedX *= -1;
+        iSpeedY *= u;
+        iSpeedX *= u;
+        newLeft = 0;
+      }
+
+      if (Math.abs(iSpeedX) < 1) {
+        iSpeedX = 0;
+      }
+      if (Math.abs(iSpeedY) < 1) {
+        iSpeedY = 0;
+      }
+
+      if (iSpeedY == 0 && iSpeedX == 0 && newTop == document.documentElement.clientHeight - dom.clientHeight) {
+        clearInterval(timer);
+
+      } else {
+        dom.style.top = newTop + 'px';
+        dom.style.left = newLeft + 'px';
+      }
+    }, 30)
+
+  }
+
+</script>
+
+</html>

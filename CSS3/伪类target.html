@@ -1,0 +1,78 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-28 21:12:51
+ * @LastEditTime: 2020-03-28 21:30:09
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\伪类target.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 记得把根标签和 body设置成 height:100%才能让后边的div高度能有 100% */
+    :root,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    div[id] {
+      height: 100%;
+      width: 100%;
+    }
+
+    div[id]:not(:target) {
+      display: none;
+    }
+
+    .demo1,
+    .demo2,
+    .demo3 {
+      position: relative;
+      bottom: 0;
+      display: inline-block;
+      text-decoration: none;
+      background: #fcc;
+      color: #fff;
+      margin: 20px;
+    }
+
+    #yellow {
+      background: yellow;
+    }
+
+    #red {
+      background: red;
+    }
+
+    #green {
+      background: green;
+    }
+
+    .wrapper {
+      position: absolute;
+      width: 600px;
+      height: 500px;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <a href="#yellow" class="demo1">yellow</a>
+    <a href="#red" class="demo2">red</a>
+    <a href="#green" class="demo3">green</a>
+  </div>
+
+  <div id="yellow"></div>
+  <div id="red"></div>
+  <div id="green"></div>
+</body>
+
+</html>

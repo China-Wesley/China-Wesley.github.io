@@ -1,0 +1,154 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-31 22:21:17
+ * @LastEditTime: 2020-04-01 14:44:54
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业6.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    @keyframes word {
+      0% {
+        width: 0;
+      }
+
+      25% {
+        width: 16px;
+      }
+
+      50% {
+        width: 32px;
+      }
+
+      75% {
+        width: 48px;
+      }
+
+      100% {
+        width: 64px;
+      }
+    }
+
+    @keyframes border {
+      0% {
+        border-color: rgba(0, 0, 0, 0);
+      }
+
+      50% {
+        border-color: rgba(0, 0, 0, 1);
+      }
+
+      100% {
+        border-color: rgba(0, 0, 0, 0);
+      }
+    }
+
+    .word {
+      position: fixed;
+      top: 45%;
+      left: calc(30% - 30px);
+      width: 65px;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 1px solid black;
+      animation: word 5s steps(1, end), border 0.6s infinite;
+
+    }
+
+    /* .word::after {
+      content: "|";
+      width: 1px;
+      background: #000;
+      animation: 1s steps(1, end);
+    } */
+    .self,
+    .tea {
+      position: absolute;
+      top: 40%;
+      left: calc(30% - 30px);
+      color: orange;
+    }
+
+    .tea {
+      position: absolute;
+      top: 40%;
+      left: calc(70% - 30px);
+    }
+
+    .teach {
+      position: absolute;
+      top: 45%;
+      left: calc(70% - 30px);
+      font-family: monospace;
+      display: inline-block;
+      animation: infinite;
+    }
+
+    .teach::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: #fff;
+      height: 100%;
+      width: 100%;
+      border-left: 1px solid black;
+      animation: border 0.6s steps(1, end) infinite, word1 5s steps(4, end) infinite;
+
+    }
+
+    @keyframes word1 {
+      0% {
+        left: 0;
+      }
+
+
+      75% {
+        left: 100%
+      }
+
+      100% {
+        left: 100%;
+
+      }
+    }
+
+    @keyframes border {
+      0% {
+        border-color: rgba(0, 0, 0, 0);
+      }
+
+      50% {
+        border-color: rgba(0, 0, 0, 1);
+      }
+
+      100% {
+        border-color: rgba(0, 0, 0, 0);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="self">自己的实现（有边框闪烁 + div宽度变化）</div>
+  <div class="word">成哥最帅</div>
+
+  <div class="tea">成哥的实现（伪元素改变位置）</div>
+  <div class="teach">成哥最帅</div>
+
+</body>
+
+</html>

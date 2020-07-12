@@ -1,0 +1,623 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-04-02 20:41:08
+ * @LastEditTime: 2020-04-03 15:16:39
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业11(bootstrap).html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    :root,
+    body {
+      height: 100%;
+
+    }
+
+    .clearfix::after {
+      content: "";
+      clear: both;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+
+
+    .header {
+      position: fixed;
+      top: 0;
+      height: 42px;
+      width: 100%;
+      border-bottom: 1px;
+      border-color: #080808;
+      background: #222;
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 14px;
+      z-index: 1000;
+    }
+
+    .head-content {
+      margin: 0 auto;
+      height: 42px;
+      position: relative;
+
+    }
+
+    .header .head-nav a {
+      color: #9d9d9d;
+    }
+
+    .header .head-nav li {
+      float: left;
+      line-height: 42px;
+      height: 42px;
+      padding: 0 15px;
+    }
+
+    .header .head-nav a:hover {
+      color: #fff;
+    }
+
+    .header .head-nav li:nth-of-type(1) {
+      font-size: 18px;
+      height: 42px;
+      line-height: 42px;
+      padding: 0 15px;
+      margin-left: -15px;
+
+    }
+
+    .header .head-content::after {
+      color: #9d9d9d;
+      content: "关于";
+      display: inline-block;
+      position: absolute;
+      right: 0px;
+      height: 42px;
+      line-height: 42px;
+
+    }
+
+    .header .option {
+      display: none;
+    }
+
+    .slide {
+      height: 430px;
+      width: 100%;
+      position: relative;
+      top: 0px;
+      content: "";
+      display: block;
+      position: relative;
+      top: 42px;
+      padding: 40px 0;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+      background: #020031;
+      background: linear-gradient(45deg, #020031, #6d3353);
+      box-shadow: inset 0 3px 7px rgba(0, 0, 0, .2), inset 0 -3px 7px rgba(0, 0, 0, .2);
+
+    }
+
+    .slide::after {
+
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: block;
+      background: url('./back.png') repeat 50%;
+      background-size: 150px 150px;
+      opacity: .5;
+    }
+
+    .slide .background {
+
+
+      width: 1140px;
+      margin: 0 auto;
+      padding: 20px 15px;
+      box-sizing: border-box;
+    }
+
+    .slide .background h1 {
+      display: block;
+      width: 1140px;
+      height: 100px;
+      margin: 20px auto 10px;
+      text-align: center;
+      line-height: 100px;
+      font-size: 100px;
+      font-weight: 700;
+    }
+
+    .slide .background h2 {
+      width: 1140px;
+      margin: 20px auto 10px;
+      text-align: center;
+      font-size: 30px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: 300;
+      display: block;
+
+    }
+
+    .slide .background a {
+      cursor: pointer;
+      display: block;
+      margin: 15px auto 0;
+      color: hsla(0, 0%, 100%, .5);
+      transition: all .2s ease-in-out;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .4), 0 0 30px rgba(0, 0, 0, .075);
+    }
+
+    .slide .background .slide-btn {
+      display: block;
+      margin: 0 auto;
+      width: auto;
+      box-shadow: inset 0 -4px 0 #23527c;
+      border: 0;
+      color: #fff;
+      background-color: #337ab7;
+      padding: 13px 35px 17px;
+      font-size: 18px;
+      line-height: 1.3333333;
+      border-radius: 6px;
+      font-weight: 400;
+      text-align: center;
+      white-space: nowrap;
+      width: 220px;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+
+    .content {
+      text-align: center;
+      width: 684px;
+      height: 95px;
+      margin: 100px auto 5px;
+
+    }
+
+    .content .item {
+      padding: 0 0 15px;
+      border-bottom: 1px solid #eee;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: rgb(238, 238, 238);
+    }
+
+    .content .item h2 {
+      display: block;
+
+      font-size: 42px;
+      font-weight: 400;
+    }
+
+    .content .item span {
+      display: block;
+      margin-top: 10px;
+      color: #333;
+      font-weight: 300;
+      font-size: 14px
+    }
+
+    .flexWrapper {
+      position: relative;
+      left: calc(50%);
+      transform: translateX(-50%);
+      width: 1170px;
+      padding: 0 15px;
+      margin: 45px auto 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      justify-content: center;
+    }
+
+    .flexWrapper .wrapper {
+      /* flex: 0 0 25%; */
+      box-sizing: border-box;
+      display: block;
+      /* width: 25%; */
+      width: 292.5px;
+      height: 367px;
+      padding: 0 15px;
+
+    }
+
+    .flexWrapper .wrapper .con {
+      height: 327px;
+      width: 252.5px;
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+      max-width: 310px;
+      margin-bottom: 30px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      /* box-sizing: border-box; */
+      font-size: 14px;
+      color: #333;
+      padding: 3px;
+    }
+
+    .flexWrapper .wrapper .con img {
+      display: block;
+      width: 99.5%;
+      height: 38.5%;
+      margin: 0 auto;
+    }
+
+    .flexWrapper .wrapper .con h2 {
+      font-size: 24px;
+      font-weight: 400;
+      color: #337AB7;
+      margin-top: 26px;
+    }
+
+    .flexWrapper .wrapper .con span:nth-of-type(1) {
+
+      color: #777;
+      font-size: 16px;
+
+    }
+
+
+
+    @media screen and (min-width: 1200px) {
+      .head-content {
+        width: 1140px;
+      }
+
+    }
+
+    @media screen and (min-width: 990px) and (max-width: 1200px) {
+      .head-content {
+        width: 940px;
+      }
+
+      .flexWrapper .wrapper {
+        flex: 0 0 33.3%;
+      }
+
+      .flexWrapper .wrapper .con {
+        height: 342px;
+        width: 283.325px;
+      }
+
+      .slide {
+        height: 410px;
+      }
+
+      .slide .background {
+
+        width: 940px;
+      }
+
+      .slide .background h1 {
+        width: 940px;
+      }
+
+      .slide .background h2 {
+        width: 940px;
+
+      }
+
+      .flexWrapper {
+        width: 970px;
+      }
+
+
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 990px) {
+      .head-content {
+        width: 720px;
+      }
+
+      .flexWrapper .wrapper {
+        height: 390px;
+        width: 375px;
+      }
+
+      .flexWrapper .wrapper .con {
+        height: 350px;
+        width: 300px;
+
+      }
+
+      .slide {
+        height: 390px;
+      }
+
+      .flexWrapper {
+        width: 750px;
+      }
+
+      .content {
+        width: 432px;
+      }
+
+      .slide .background {
+        width: 720px;
+      }
+
+      .slide .background h2 {
+        width: 720px;
+        font-size: 24px;
+
+      }
+
+      .header .head-nav li:nth-of-type(1) {
+        display: none;
+      }
+
+      .header .head-content::after {
+        display: none;
+      }
+
+      .slide .background h1 {
+        width: 720px;
+        font-size: 90px;
+      }
+
+    }
+
+    @media screen and (max-width: 768px) {
+      .head-content {
+        width: 100%;
+        height: 50px;
+      }
+
+      .flexWrapper {
+        width: 100%;
+      }
+
+      .slide {
+        height: 370px;
+      }
+
+      .slide .background {
+        width: 100%;
+      }
+
+      .header .head-nav li:not(:nth-of-type(1)) {
+        display: none;
+      }
+
+      .header .head-nav li:nth-of-type(1) {
+        margin-left: 0;
+      }
+
+      .header .head-content::after {
+        display: none;
+      }
+
+      .header .option {
+        position: relative;
+        float: right;
+        display: block;
+        padding: 9px 10px;
+        border: 1px solid #333;
+        margin: 4px 15px 8px 0;
+        width: 22px;
+        height: 14px;
+        border-radius: 5px;
+      }
+
+      .header .option .btn-icon {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background-color: #fff;
+        margin-bottom: 4px;
+      }
+
+      .slide .background h1 {
+        width: 90%;
+        font-size: 60px;
+        height: 60px;
+        line-height: 60px;
+      }
+
+      .slide .background h2 {
+        width: 90%;
+        font-size: 18px;
+        font-weight: 200;
+
+      }
+
+      .content {
+        width: 60%;
+
+      }
+
+      .content .item h2 {
+        font-size: 30px;
+      }
+
+      .flexWrapper .wrapper {
+        /* flex: 0 0 300px; */
+        width: 100%;
+      }
+
+      .flexWrapper .wrapper .con {
+        height: 350px;
+        width: 300px;
+        position: absolute;
+        left: calc(50%);
+        transform: translateX(-50%);
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- header -->
+  <div class="header clearfix">
+    <div class="head-content">
+      <ul class="head-nav">
+        <li>
+          <a href="#">Bootstrap中文网</a>
+        </li>
+        <li>
+          <a href="#">Bootstrap3中文文档</a>
+        </li>
+        <li>
+          <a href="#">Bootstrap4中文文档</a>
+        </li>
+        <li>
+          <a href="#">Sass 教程</a>
+        </li>
+        <li>
+          <a href="#">Less 教程</a>
+        </li>
+        <li>
+          <a href="#">jQuery API</a>
+        </li>
+        <li>
+          <a href="#">网站实例</a>
+        </li>
+      </ul>
+      <div class="option">
+        <span class="btn-icon"></span>
+        <span class="btn-icon"></span>
+        <span class="btn-icon"></span>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="slide">
+    <div class="background">
+      <h1>Bootstrap</h1>
+      <h2>简洁、直观、强悍的前端开发框架，让web开发更迅速、简单。</h2>
+      <a href="#" class="slide-btn">Bootstrap3中文文档(v3.3.7)</a>
+      <a href="#">Bootstrap2中文文档(v2.3.2)</a>
+    </div>
+  </div>
+
+  <!-- content -->
+  <div class="content">
+    <div class="item">
+      <h2>Bootstrap相关优质项目推荐</h2>
+      <span>这些项目或者是对Bootstrap进行了有益的补充，或者是基于Bootstrap开发的</span>
+    </div>
+    <!-- flex -->
+    <div class="flexWrapper">
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content1.png" alt="">
+          <div class="">
+            <h2>Webpack</h2>
+            <span>我太懒啦 剩下那些字 我就不加上去啦哈哈哈哈哈哈哈哈哈哈</span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content2.png" alt="">
+          <h2>React</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content3.png" alt="">
+          <h2>TypeScript</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content4.png" alt="">
+          <h2>Svelte</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content5.png" alt="">
+          <h2>jQuery API</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content6.png" alt="">
+          <h2>Next.js</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content7.png" alt="">
+          <h2>Babel</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+
+      <div class="wrapper">
+        <div class="con">
+          <img src="./content8.png" alt="">
+          <h2>Node.js</h2>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- footer -->
+  <div></div>
+</body>
+
+</html>

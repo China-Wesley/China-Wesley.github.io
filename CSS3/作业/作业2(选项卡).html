@@ -1,0 +1,80 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-29 11:06:09
+ * @LastEditTime: 2020-03-29 11:16:27
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业2.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root,
+    body {
+      margin: 0;
+      height: 100%;
+    }
+
+    div[id] {
+      height: 95%;
+      width: 100%;
+    }
+
+    #section1 {
+      background: orange;
+    }
+
+    #section2 {
+      background: chartreuse;
+    }
+
+    #section3 {
+      background: #fcc;
+    }
+
+    .nav {
+      height: 5%;
+      width: 100%;
+      text-align: center;
+      background-color: cornsilk;
+      line-height: 35px;
+    }
+
+    .nav a {
+      text-align: center;
+      margin: 0 30px;
+      display: inline-block;
+      text-decoration: none;
+      color: #f40;
+      width: 50px;
+
+    }
+
+    .nav a:hover {
+      background: #fcc;
+    }
+
+    div[id]:not(:target) {
+      display: none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <a href="#section1">选项1</a>
+    <a href="#section2">选项2</a>
+    <a href="#section3">选项3</a>
+  </div>
+  <div id="section1">1</div>
+  <div id="section2">2</div>
+  <div id="section3">3</div>
+</body>
+
+</html>

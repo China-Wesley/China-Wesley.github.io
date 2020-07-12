@@ -1,0 +1,153 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-31 20:42:55
+ * @LastEditTime: 2020-03-31 21:48:51
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业5.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0
+    }
+
+    :root,
+    body {
+      height: 100%;
+      background: #000;
+    }
+
+    .space {
+      height: 100%;
+      background-image: linear-gradient(to bottom, rgba(0, 130, 255, 1), rgba(255, 255, 255, 1));
+      animation: change 10s cubic-bezier(.5, .5, 1, 1) infinite;
+    }
+
+    @keyframes change {
+      0% {
+        opacity: .3;
+      }
+
+      25% {
+        opacity: 1;
+      }
+
+      65% {
+        opacity: .3;
+      }
+
+
+      80% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: .3;
+      }
+    }
+
+    .sun {
+      position: absolute;
+      bottom: 0;
+      left: calc(50% - 12.5px);
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: #fff;
+      box-shadow: 0px 0px 30px 25px #fff,
+        0px 0px 60px 25px #ff0;
+      animation: sunRise 10s cubic-bezier(.5, .5, 1, 1) infinite;
+    }
+
+    @keyframes sunRise {
+      from {
+        opacity: .3;
+
+
+      }
+
+      35% {
+        opacity: 1;
+        bottom: 50%
+      }
+
+
+      65% {
+        opacity: 0;
+        bottom: 100%
+      }
+
+      80% {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    .moon {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      left: calc(50% - 25px);
+      bottom: 100px;
+      box-shadow: -12px 0px 0px 8px #fff,
+        -12px 0px 10px 8px #fff;
+      border-radius: 50%;
+      background-color: #000;
+      animation: moonRise 10s cubic-bezier(.5, .5, 1, 1) infinite;
+    }
+
+    @keyframes moonRise {
+      from {
+        opacity: 0;
+
+
+      }
+
+      50% {
+        opacity: 0;
+        bottom: 0;
+      }
+
+      65% {
+        opacity: .3;
+        bottom: 30%;
+
+      }
+
+      75% {
+        opacity: 1;
+        bottom: 50%;
+      }
+
+      90% {
+        opacity: 0;
+        bottom: 80%;
+      }
+
+
+      to {
+        opacity: 0;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="space"></div>
+  <div class="sun"></div>
+  <div class="moon"></div>
+</body>
+
+</html>

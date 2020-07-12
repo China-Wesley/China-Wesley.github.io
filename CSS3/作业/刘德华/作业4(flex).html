@@ -1,0 +1,106 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-03-30 20:47:31
+ * @LastEditTime: 2020-03-30 21:42:04
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \JS jQuery源码\CSS3\作业4.html
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: rgba(0, 0, 0, .4);
+      font-size: 10px;
+      position: relative;
+      left: 5px;
+      top: 142px;
+    }
+
+    .wrapper {
+      border: 1px solid black;
+      position: fixed;
+      top: calc(25%);
+      left: calc(50% - 250px);
+      width: 500px;
+      height: 200px;
+      resize: both;
+      overflow: auto;
+      display: flex;
+      align-items: center;
+
+    }
+
+    .content {
+      width: 120px;
+      height: 160px;
+      background-image: url('./ims.jfif');
+      background-size: 100%;
+      background-repeat: no-repeat;
+      flex: 0 0 auto;
+      box-sizing: border-box;
+    }
+
+    .content:nth-of-type(1) {
+      margin-left: 20px;
+    }
+
+    .content:nth-of-type(2) {
+      flex: 1 1 auto;
+      background: #fff;
+      display: flex;
+      align-content: flex-start;
+      flex-direction: column;
+    }
+
+    .content:nth-of-type(2) div {
+      margin: 20px 0 20px 20px;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 30px;
+      position: relative;
+
+    }
+
+    .content:nth-of-type(2) span {
+      box-sizing: border-box;
+      font-size: 14px;
+      line-height: 22px;
+      color: rgba(0, 0, 0, .4);
+      margin: 10px 0 0 20px;
+      /* 这里给设置一个文字超出显示span显示省略号  */
+      /* 一个小小三件套 */
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="content">
+      <a href="https://www.baidu.com">更多图片</a>
+    </div>
+    <div class="content">
+      <div>刘德华</div>
+      <span>演员，歌手，填词人，制片人</span>
+      <span>1961年09月27日(58岁)</span>
+    </div>
+  </div>
+</body>
+
+</html>

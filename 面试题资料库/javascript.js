@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>面试汇总</title>
-</head>
-
-<body>
-  <script>
     === === === == 数组方法 === === === ==
       栈和队列
     1. 队列先进先出， 栈先进后出。
@@ -40,7 +31,6 @@
     toString():
       方法可把数组转换为字符串， 并返回结果。 加radix， 也可以转化成十进制
 
-
       ===
       ===
       ===
@@ -49,25 +39,25 @@
       方法返回一个整数， 代表指定位置字符的Unicode编码。
     fromCharCode(code1, code2...):
       方法从一些Unicode字符串中返回一个字符串。
-    charAt(index):
+    charAt(index): (填索引返回字符串)
       方法返回指定索引位置处的字符。 如果超出有效范围的索引值返回空字符串。
-    slice(start, end):
+    slice(start, end): (左闭右开区间)
       方法返回字符串的片段。 算头不算尾。
     substring(start, end):
       方法用于提取字符串中介于两个指定下标之间的字符。 算头不算尾。
     substr(start, length):
       方法返回一个从指定位置开始的指定长度的子字符串。
-    indexOf(substr, startIndex):
+    indexOf(substr, startIndex): (填字符串返回索引)
       方法放回String对象内第一次出现子字符串位置。 没有找到子字符串， 则返回 - 1。
     split(separator, limit):
       将一个字符串分割为子字符串， 然后将结果作为字符串数组返回。 limit该值用来限制返回数组中的元素个数。
     concat(string1, string2...):
       方法返回字符串值， 该值包含了两个或多个提供的字符串的连接。
-    search():
+    search(): (填正则返回索引)
       方法返回与正则表达式查找内容匹配的第一个字符串的位置。
     toLowerCase() / toUpperCase():
       改变字符串中的字母大小写
-
+    match(): 匹配正则，返回匹配上的数组
 
       ===
       ===
@@ -170,6 +160,16 @@
         }
       }());
 
+      function inherit(Target, Origin){
+        let F = function(){}
+        F.prototype = Origin.prototype
+        Target.prototype = new F()
+        Target.prototype.constructor = Target
+        Target.prototype.super = Origin.prototype
+      }
+
+      Children.prototype = new parent()
+
     function ibnherit(origin, target) {
       let F = function () {};
       f.prototype = origin.prototype;
@@ -180,6 +180,8 @@
 
     [...new Set(arr)];
 
+
+    func.prototype = new Function()
 
     function qvchong(arr) {
       let target = [];
@@ -210,6 +212,19 @@
         }
       }
       return tar;
+    }
+
+    function deepClone(ori, tar){
+      let temp = target || {}
+      for(let i in ori){
+        if(typeof(ori[i]) == 'object'){
+          tar[i] = (ori[i].constructor == Array) ? [] : {}
+          deepClone(ori[i], tar[i])
+        } else {
+          tar[i] == ori[i]
+        }
+      }
+      return temp
     }
 
     function deepCopy(ori, tar) {
@@ -756,6 +771,19 @@
       return arr
     }
 
+
+    function unique(arr){
+      let res = []
+      for(let i = 0; i < arr.length; i++){
+        if(res.indexOf(arr[i])){
+          res.push(arr[i])
+        }
+      }
+      return res
+    }
+
+    
+
     用一个空数组和空对象以及一个循环就可实现
     当我们数组中的这个数据出现过一次之后， 我们就在obj中将这个元素的值的位置标记成1， 后面如果出现相同的属性值， 因为这个位置已经是1了，
     所以就不会添加到新数组里面， 从而达到了去重的效果。
@@ -1120,7 +1148,3 @@
 
             18. 样式优先级： 默认 < 类型 < class < id < style(行间) < important 在IE6后面再加一条同样的样式， 会破会掉important的作用， 会按照默认的优先级顺序来走.
 
-  </script>
-</body>
-
-</html>

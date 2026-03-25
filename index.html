@@ -1,26 +1,1333 @@
-<!--
- * @Author: your name
- * @Date: 2020-04-30 11:43:37
- * @LastEditTime: 2020-04-30 16:21:26
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \JS jQuery 源码\index.html
- -->
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>走查工具隐私策略</title>
+  <title>星海AI — 终极AI流量作战平台</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #6366F1;       /* 靛蓝紫 */
+      --primary-dark: #4F46E5;
+      --secondary: #1A1A2E;      /* 深藏青 */
+      --accent: #FFD600;         /* 亮黄强调 */
+      --surface: #FFFFFF;
+      --bg: #F7F8FC;
+      --text: #1A1A2E;
+      --text-muted: #6B7280;
+      --font: 'DM Sans', 'Noto Sans SC', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--primary); }
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: var(--secondary); color: var(--surface); }
+    .nav-cta {
+      background: var(--primary) !important;
+      color: var(--surface) !important;
+      padding: 10px 24px !important;
+      border-radius: 50px !important;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .hamburger span {
+      width: 22px; height: 2px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--secondary);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--surface);
+      letter-spacing: -0.02em;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      margin-top: 68px;
+      background: var(--secondary);
+      color: var(--surface);
+      padding: 80px 32px 100px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,59,92,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: 20%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,214,0,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,59,92,0.15);
+      border: 1px solid rgba(255,59,92,0.3);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 28px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: pulse-dot 1.5s infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero h1 .highlight {
+      color: var(--primary);
+      position: relative;
+    }
+    .hero h1 .highlight::after {
+      content: '';
+      position: absolute;
+      bottom: 4px; left: 0;
+      width: 100%; height: 8px;
+      background: rgba(255,59,92,0.25);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+      margin-bottom: 40px;
+      max-width: 440px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: var(--surface);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(255,59,92,0.35);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,59,92,0.45);
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      color: var(--surface);
+      padding: 16px 32px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background 0.2s;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.15); }
+
+    .hero-right { position: relative; }
+    .hero-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px;
+      backdrop-filter: blur(8px);
+    }
+    .hero-stat-row {
+      display: flex;
+      gap: 0;
+      margin-bottom: 32px;
+    }
+    .hero-stat-box {
+      flex: 1;
+      text-align: center;
+      padding: 20px 16px;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .hero-stat-box:last-child { border-right: none; }
+    .hero-stat-num {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .hero-stat-label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .hero-feature-list { display: flex; flex-direction: column; gap: 12px; }
+    .hero-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.75);
+    }
+    .hero-feature-item .icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      background: rgba(255,59,92,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    /* ── Social proof bar ── */
+    .social-proof {
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 24px 32px;
+    }
+    .social-proof-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .social-proof-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .social-proof-items {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .social-proof-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .social-proof-item .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(255,59,92,0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 700;
+    }
+
+    /* ── Problem ── */
+    .problem-section {
+      padding: 100px 32px;
+      background: var(--surface);
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .section-label-num {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--surface);
+      background: var(--primary);
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .section-label-text {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--secondary);
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .problem-card {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .problem-emoji {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    .problem-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .problem-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .problem-arrow {
+      margin-top: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── Solution ── */
+    .solution-section {
+      padding: 100px 32px;
+      background: var(--secondary);
+      color: var(--surface);
+    }
+    .solution-section .section-title { color: var(--surface); }
+    .solution-section .section-desc { color: rgba(255,255,255,0.55); }
+    .solution-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .solution-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .solution-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    .solution-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+    .solution-icon {
+      width: 56px; height: 56px;
+      border-radius: 14px;
+      background: rgba(255,59,92,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+    }
+    .solution-num {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.05);
+      letter-spacing: -0.05em;
+      line-height: 1;
+    }
+    .solution-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .solution-subtitle {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .solution-desc {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.9;
+      margin-bottom: 24px;
+    }
+    .solution-features { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .solution-features li {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      padding-left: 20px;
+      position: relative;
+      line-height: 1.7;
+    }
+    .solution-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* ── Stats highlight ── */
+    .stats-highlight {
+      padding: 80px 32px;
+      background: var(--primary);
+      position: relative;
+      overflow: hidden;
+    }
+    .stats-highlight::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,214,0,0.2) 0%, transparent 70%);
+    }
+    .stats-highlight::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: 10%;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    }
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .stats-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .stats-header h2 {
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--surface);
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .stats-header p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .stat-value {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--surface);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-unit {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin-top: 8px;
+    }
+
+    /* ── Use Cases ── */
+    .cases-section {
+      padding: 100px 32px;
+      background: var(--surface);
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .case-card {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 36px 28px;
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .case-icon-wrap {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .case-card:nth-child(1) .case-icon-wrap { background: rgba(255,59,92,0.1); }
+    .case-card:nth-child(2) .case-icon-wrap { background: rgba(255,214,0,0.15); }
+    .case-card:nth-child(3) .case-icon-wrap { background: rgba(26,26,46,0.08); }
+    .case-card:nth-child(4) .case-icon-wrap { background: rgba(255,59,92,0.1); }
+    .case-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .case-problem-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .case-problem-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+    .case-divider {
+      height: 1px;
+      background: rgba(0,0,0,0.06);
+    }
+    .case-solution-text {
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .case-result {
+      margin-top: auto;
+      padding: 10px 16px;
+      background: rgba(255,59,92,0.08);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      padding: 80px 32px;
+      background: var(--bg);
+      text-align: center;
+      border-top: 1px solid rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+    }
+    .cta-banner h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+    .cta-banner p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: var(--surface);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-dark:hover { background: #2d2d4a; transform: translateY(-2px); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--secondary);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: 2px solid var(--secondary);
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--secondary); color: var(--surface); }
+
+    /* ── Tutorial & Partner ── */
+    .tuto-section {
+      padding: 100px 32px;
+      background: var(--surface);
+    }
+    .tuto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .tuto-card {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 48px 40px;
+      border: 1px solid rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .tuto-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+    }
+    .tuto-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--primary);
+    }
+    .tuto-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .tuto-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--secondary);
+      letter-spacing: -0.02em;
+      line-height: 1.3;
+    }
+    .tuto-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.9;
+    }
+    .tuto-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-top: 8px;
+      transition: gap 0.2s;
+    }
+    .tuto-link:hover { gap: 12px; }
+
+    /* ── Download ── */
+    .download-section {
+      padding: 100px 32px;
+      background: var(--secondary);
+      color: var(--surface);
+    }
+    .download-section .section-label-text { color: var(--primary); }
+    .download-section .section-title { color: var(--surface); }
+    .download-section .section-desc { color: rgba(255,255,255,0.55); }
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .download-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .download-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+    }
+    .download-icon {
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: rgba(255,59,92,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin: 0 auto 24px;
+    }
+    .download-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .download-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+    .download-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--surface);
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .download-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    /* ── Footer ── */
+    footer {
+      background: #111122;
+      color: rgba(255,255,255,0.5);
+      padding: 64px 32px 40px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .footer-logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--surface);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+    .footer-brand .footer-logo span { color: var(--primary); }
+    .footer-brand p {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.8;
+      max-width: 220px;
+    }
+    .footer-col-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 20px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--surface); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 32px;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+    }
+    .footer-legal a {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      margin-left: 32px;
+      display: inline;
+    }
+    .footer-legal a:hover { color: var(--surface); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .hero { padding: 60px 24px 80px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-right { order: -1; }
+      .hero-card { padding: 28px; }
+
+      .social-proof-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+
+      .problem-grid,
+      .solution-grid,
+      .cases-grid,
+      .download-grid { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .tuto-grid { grid-template-columns: 1fr; }
+      .tuto-card { padding: 36px 28px; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; gap: 16px; align-items: flex-start; }
+      .footer-legal a:first-child { margin-left: 0; }
+
+      .section-inner { padding: 0; }
+      section { padding: 80px 24px; }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .cases-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .download-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 2fr 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+  </style>
 </head>
 <body>
-  <h1>插件隐私权说明</h1>
-  <h2>背景</h2>
-  <div>该插件是一款用于公司内部提升测试与设计走查效率的工具，能自动采集页面的核心信息（账号名、原始页面URL等），同时支持截图、录屏上传。</div>
-  <h2>请求storage权限</h2>
-  <div>用户缓存用户填写的一些关键信息，这些信息每次提交时会被重复手动输入，缓存这些信息作为历史记录，方便用户快速填写</div>
-  <h2>请求cookie权限</h2>
-  <div>请求上报依赖星桥（前端研发平台）的登陆态，当登陆态过期或失效，需要引导用户重新获取登陆态，当发现cookie过期时，手动清空过期cookie，以确保新登陆态能获取成功</div>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">星<span>海</span>AI</div>
+      <ul class="nav-links">
+        <li><a href="#problem">痛点</a></li>
+        <li><a href="#solution">解决方案</a></li>
+        <li><a href="#cases">案例</a></li>
+        <li><a href="#tutorials">教程</a></li>
+        <li><a href="#download" class="nav-cta">免费注册</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#problem" onclick="toggleMenu()">痛点</a>
+    <a href="#solution" onclick="toggleMenu()">解决方案</a>
+    <a href="#cases" onclick="toggleMenu()">案例</a>
+    <a href="#tutorials" onclick="toggleMenu()">教程</a>
+    <a href="#download" onclick="toggleMenu()">免费注册</a>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+  </script>
+
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge">AI 驱动 · 流量作战平台</div>
+        <h1>流量本无规则<br>直到 <span class="highlight">星海</span> 来了</h1>
+        <p class="hero-sub">为内容战略家与流量操盘手，打造的终极 AI 作战平台。免费注册，重定您的流量规则。</p>
+        <div class="hero-actions">
+          <a href="#" class="btn-primary">免费注册 →</a>
+          <a href="#" class="btn-ghost">观看演示</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-stat-row">
+            <div class="hero-stat-box">
+              <div class="hero-stat-num">10,000+</div>
+              <div class="hero-stat-label">创作者赋能</div>
+            </div>
+            <div class="hero-stat-box">
+              <div class="hero-stat-num">90%</div>
+              <div class="hero-stat-label">调研节省</div>
+            </div>
+            <div class="hero-stat-box">
+              <div class="hero-stat-num">500%</div>
+              <div class="hero-stat-label">效率提升</div>
+            </div>
+          </div>
+          <div class="hero-feature-list">
+            <div class="hero-feature-item">
+              <div class="icon">🔍</div>
+              <span>一键提取赛道下拉词，发现真实需求</span>
+            </div>
+            <div class="hero-feature-item">
+              <div class="icon">🧠</div>
+              <span>AI 战略参谋，将难题转化为可执行方案</span>
+            </div>
+            <div class="hero-feature-item">
+              <div class="icon">⚡</div>
+              <span>批量生成内容，一键分发多平台</span>
+            </div>
+            <div class="hero-feature-item">
+              <div class="icon">📊</div>
+              <span>深度复盘与归因，持续优化增长</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof -->
+  <div class="social-proof">
+    <div class="social-proof-inner">
+      <div class="social-proof-label">已为 10,000+ 用户赋能</div>
+      <div class="social-proof-items">
+        <div class="social-proof-item">
+          <div class="check">✓</div>
+          <span>爆款模板自动提炼</span>
+        </div>
+        <div class="social-proof-item">
+          <div class="check">✓</div>
+          <span>AI 战略生成</span>
+        </div>
+        <div class="social-proof-item">
+          <div class="check">✓</div>
+          <span>一键多平台分发</span>
+        </div>
+        <div class="social-proof-item">
+          <div class="check">✓</div>
+          <span>跨设备数据同步</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <section class="problem-section" id="problem">
+    <div class="section-inner">
+      <div class="section-label-row">
+        <div class="section-label-num">01</div>
+        <div class="section-label-text">痛点</div>
+      </div>
+      <h2 class="section-title">还在凭感觉做流量？</h2>
+      <p class="section-desc">每一位内容创作者和流量操盘手，都曾被这些问题困住。手动分析、低效执行、缺乏数据支撑，让你的流量增长原地踏步。</p>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <div class="problem-emoji">🔍</div>
+          <div class="problem-title">凭感觉找选题</div>
+          <div class="problem-desc">没有数据依据，全靠猜。写了一堆内容，用户真正关心什么却一无所知。</div>
+          <div class="problem-arrow">调研工厂 →</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-emoji">📉</div>
+          <div class="problem-title">有数据不会用</div>
+          <div class="problem-desc">笔记数据、评论数据堆在手边，却不知道如何提炼成可复用的爆款公式。</div>
+          <div class="problem-arrow">星海 Agent →</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-emoji">⏰</div>
+          <div class="problem-title">多平台手忙脚乱</div>
+          <div class="problem-desc">小红书、抖音、公众号多平台运营，内容生产、分发、管理消耗大量精力。</div>
+          <div class="problem-arrow">流量中心 →</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution -->
+  <section class="solution-section" id="solution">
+    <div class="section-inner">
+      <div class="section-label-row">
+        <div class="section-label-num">02</div>
+        <div class="section-label-text" style="color: var(--primary);">解决方案</div>
+      </div>
+      <h2 class="section-title">三大模块，全链路赋能</h2>
+      <p class="section-desc">从情报获取到战略制定，再到规模化执行 — 星海AI将你的流量能力提升到全新量级。</p>
+
+      <div class="solution-grid">
+        <div class="solution-card">
+          <div class="solution-icon">🔍</div>
+          <div class="solution-num">01</div>
+          <div class="solution-title">调研工厂</div>
+          <div class="solution-subtitle">情报即权力</div>
+          <div class="solution-desc">自动化情报网络，为您绘制每一寸流量地图</div>
+          <ul class="solution-features">
+            <li>一键提取赛道所有下拉词</li>
+            <li>批量采集笔记与评论</li>
+            <li>爆款模板自动提炼</li>
+          </ul>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">🧠</div>
+          <div class="solution-num">02</div>
+          <div class="solution-title">星海 Agent</div>
+          <div class="solution-subtitle">战略即武器</div>
+          <div class="solution-desc">您的专属 AI 战略参谋，将难题转化为可执行方案</div>
+          <ul class="solution-features">
+            <li>内容战略与完整日历生成</li>
+            <li>作品问题诊断与深度复盘</li>
+            <li>商业模式推演与增长闭环</li>
+          </ul>
+        </div>
+        <div class="solution-card">
+          <div class="solution-icon">⚡</div>
+          <div class="solution-num">03</div>
+          <div class="solution-title">流量中心</div>
+          <div class="solution-subtitle">执行即帝国</div>
+          <div class="solution-desc">自动化内容工厂，将战略规模化为帝国版图</div>
+          <ul class="solution-features">
+            <li>模板化批量生成灵感草稿</li>
+            <li>内容资产集中管理</li>
+            <li>一键多平台分发</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-highlight" id="stats">
+    <div class="stats-inner">
+      <div class="stats-header">
+        <h2>这，就是规则被重塑的地方</h2>
+        <p>您的流量，始于此刻</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">10,000<span class="stat-unit">+</span></div>
+          <div class="stat-label">创作者赋能</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">90<span class="stat-unit">%</span></div>
+          <div class="stat-label">调研时间节省</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">500<span class="stat-unit">%</span></div>
+          <div class="stat-label">决策效率提升</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">10<span class="stat-unit">×</span></div>
+          <div class="stat-label">内容产出速度</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cases -->
+  <section class="cases-section" id="cases">
+    <div class="section-inner">
+      <div class="section-label-row">
+        <div class="section-label-num">03</div>
+        <div class="section-label-text" style="color: var(--primary);">案例</div>
+      </div>
+      <h2 class="section-title">为不同战场，定制火力支援</h2>
+      <p class="section-desc">无论你是哪类角色，星海AI都有针对性的解决方案。</p>
+
+      <div class="cases-grid">
+        <div class="case-card">
+          <div class="case-icon-wrap">创</div>
+          <div class="case-title">内容创作者</div>
+          <div class="case-problem-label">痛点</div>
+          <div class="case-problem-text">用户洞察模糊，不知道目标用户真正关心什么</div>
+          <div class="case-divider"></div>
+          <div class="case-solution-text">通过【调研工厂】采集真实评论与搜索行为，精准描绘用户画像</div>
+          <div class="case-result">定位更精准</div>
+        </div>
+        <div class="case-card">
+          <div class="case-icon-wrap">销</div>
+          <div class="case-title">营销操盘手</div>
+          <div class="case-problem-label">痛点</div>
+          <div class="case-problem-text">广告投放低效，素材对撞靠猜，ROI难提升</div>
+          <div class="case-divider"></div>
+          <div class="case-solution-text">【战略复盘】对撞分析不同广告素材组合，找到最高转化率方案</div>
+          <div class="case-result">成本降低 50%</div>
+        </div>
+        <div class="case-card">
+          <div class="case-icon-wrap">商</div>
+          <div class="case-title">电商卖家</div>
+          <div class="case-problem-label">痛点</div>
+          <div class="case-problem-text">营销文案难产，创意枯竭，无法持续输出高质量内容</div>
+          <div class="case-divider"></div>
+          <div class="case-solution-text">【星海 Agent】根据产品和用户，生成符合品牌调性的营销文案</div>
+          <div class="case-result">创意源源不断</div>
+        </div>
+        <div class="case-card">
+          <div class="case-icon-wrap">实</div>
+          <div class="case-title">实体商家</div>
+          <div class="case-problem-label">痛点</div>
+          <div class="case-problem-text">线上转型困难，缺乏系统化的流量获取和运营能力</div>
+          <div class="case-divider"></div>
+          <div class="case-solution-text">借助星海AI全链路工具，构建完整的线上营销体系</div>
+          <div class="case-result">全渠道流量增长</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <h2>您与顶尖流量战略家的差距<br>只在一个星海AI</h2>
+    <p>免费注册，立即开始重定您的流量规则</p>
+    <div class="cta-actions">
+      <a href="#" class="btn-dark">免费注册，开始作战 →</a>
+      <a href="#" class="btn-outline">了解更多</a>
+    </div>
+  </section>
+
+  <!-- Tutorial -->
+  <section class="tuto-section" id="tutorials">
+    <div class="section-inner">
+      <div class="section-label-row">
+        <div class="section-label-num">04</div>
+        <div class="section-label-text" style="color: var(--primary);">教程与合作</div>
+      </div>
+      <h2 class="section-title">武装您的思想，共同缔造未来</h2>
+
+      <div class="tuto-grid">
+        <div class="tuto-card">
+          <div class="tuto-tag">帮助与教程</div>
+          <div class="tuto-title">从入门到高阶<br>知识武装全掌握</div>
+          <div class="tuto-desc">从快速入门的实操指南，到深度解析AI战略的高阶教程，将星海AI的威力发挥到极致。</div>
+          <a href="#" class="tuto-link">进入帮助中心 →</a>
+        </div>
+        <div class="tuto-card">
+          <div class="tuto-tag">合作伙伴联盟</div>
+          <div class="tuto-title">将影响力转化为<br>持续合规的价值回报</div>
+          <div class="tuto-desc">加入联盟，获得强大的推广武器与丰厚的佣金，共同构建并分享正在崛起的商业生态。</div>
+          <a href="#" class="tuto-link">了解联盟计划 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="download-section" id="download">
+    <div class="section-inner">
+      <div class="section-label-row">
+        <div class="section-label-num">05</div>
+        <div class="section-label-text">下载应用端</div>
+      </div>
+      <h2 class="section-title">随时随地，执掌您的AI帝国</h2>
+      <p class="section-desc">极致性能 · 沉浸体验 · 无缝协同</p>
+
+      <div class="download-grid">
+        <div class="download-card">
+          <div class="download-icon">⚡</div>
+          <div class="download-title">极致性能</div>
+          <div class="download-desc">原生应用带来更快的响应速度与更流畅的操作体验</div>
+          <a href="#" class="download-btn">下载 Windows 版</a>
+        </div>
+        <div class="download-card">
+          <div class="download-icon">◉</div>
+          <div class="download-title">沉浸体验</div>
+          <div class="download-desc">专属工作区，百分百专注战略推演与内容创造</div>
+          <a href="#" class="download-btn">下载 macOS 版</a>
+        </div>
+        <div class="download-card">
+          <div class="download-icon">↔</div>
+          <div class="download-title">无缝协同</div>
+          <div class="download-desc">跨设备同步数据与设置，从桌面到移动无缝切换</div>
+          <a href="#" class="download-btn">下载 移动端</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">星<span>海</span>AI</div>
+          <p>为内容战略家与流量操盘手，打造的终极 AI 作战平台。</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">产品</div>
+          <a href="#">产品功能</a>
+          <a href="#">定价</a>
+          <a href="#">案例与方案</a>
+          <a href="#">下载客户端</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">资源</div>
+          <a href="#">帮助中心</a>
+          <a href="#">教程</a>
+          <a href="#">博客</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">合作</div>
+          <a href="#">合作伙伴联盟</a>
+          <a href="#">联系我们</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">公司</div>
+          <a href="#">关于我们</a>
+          <a href="#">隐私政策</a>
+          <a href="#">服务条款</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2024 星海AI. 保留所有权利.</div>
+        <div class="footer-legal">
+          <a href="#">隐私政策</a>
+          <a href="#">服务条款</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>

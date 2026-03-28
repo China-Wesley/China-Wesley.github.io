@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[25531,["/_next/static/chunks/0o9gf9asi9el8.js","/_next/static/chunks/0_mxefo8s90o8.js"],"ViewportBoundary"]
+3:I[25531,["/_next/static/chunks/0o9gf9asi9el8.js","/_next/static/chunks/0_mxefo8s90o8.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+5:I[67175,["/_next/static/chunks/0o9gf9asi9el8.js","/_next/static/chunks/0_mxefo8s90o8.js"],"IconMark"]
+0:{"rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"MediaMind · 智媒运营平台"}],["$","meta","1",{"name":"description","content":"自媒体博主的 AI 全栈运营助手 — 读懂热点、看透竞品、生成内容、持续增长"}],["$","link","2",{"rel":"icon","href":"/favicon.ico?favicon.0x3dzn~oxb6tn.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L5","3",{}]]}]}]}],null]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"7EWPb3_OYplG-3cdG8iPG"}
